@@ -1,0 +1,16 @@
+outils pour mieux comprendre git : Oh My Git
+c'est un petit jeux a télécharger qui permet de mieux comprendre
+les différentes commandes git 
+PS : petit tips essayé de taper les commandes vous-même, sans utiliser
+les cartes, ce sera plus éducatif ;).
+
+pour bien commencer le projet voici quelque commande utile :
+- git clone LienDuRepoGit.com (dans un dossier choisi au préalable sur votre ordi)
+- git checkout NomDeLaBranche (pour vous déplacer dans la branche désirée)
+- commit -m "message a transmettre" 
+	(Major = changement non compatible avec le code,
+	 minor = changement compatible avec le code,
+	 patch = correction de bug)
+- git add NomDuFichier (pour ajouter un fichier n'existant pas dans le repo)
+- !ATTENTION! un git push doit être précédé d'un git pull afin d'être à jour
+- (ajout d'autres commandes si besoin est)
