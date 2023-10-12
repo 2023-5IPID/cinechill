@@ -17,8 +17,20 @@ module.exports = {
     },
     extend: {
       colors: {
-        primary: { "50": "#eff6ff", "100": "#dbeafe", "200": "#bfdbfe", "300": "#93c5fd", "400": "#60a5fa", "500": "#3b82f6", "600": "#2563eb", "700": "#1d4ed8", "800": "#1e40af", "900": "#1e3a8a" }
-      }
+        // Remplacez les teintes de bleu par des teintes de rouge
+        primary: {
+          "50": "#fff5f5",
+          "100": "#fed7d7",
+          "200": "#feb2b2",
+          "300": "#fc8181",
+          "400": "#f56565",
+          "500": "#e53e3e",
+          "600": "#c53030",
+          "700": "#9b2c2c",
+          "800": "#822727",
+          "900": "#63171b",
+        },
+      },
     },
     fontFamily: {
       'body': [
