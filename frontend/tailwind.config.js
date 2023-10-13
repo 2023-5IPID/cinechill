@@ -4,7 +4,7 @@ module.exports = {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: 'media',
+  darkMode: 'class',
   theme: {
     container: {
       padding: {
@@ -32,6 +32,7 @@ module.exports = {
         },
       },
     },
+
     fontFamily: {
       'body': [
         'Inter',
@@ -73,3 +74,5 @@ module.exports = {
     require('flowbite/plugin')
   ],
 }
+
+
