@@ -4,6 +4,7 @@ use App\Http\Controllers\FilmController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,11 +25,18 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [AuthController::class, 'user']);
 });
 
-Route::prefix('api/films')->group(function () {
-    Route::get('/', 'FilmsController@index');
-    Route::post('/', 'FilmsController@store');
-    Route::get('/{id}', 'FilmsController@show');
-    Route::get('/{id}/edit', 'FilmsController@edit');
-    Route::put('/{id}', 'FilmsController@update');
-    Route::delete('/{id}', 'FilmsController@destroy');
-});
+// Route::prefix('api/films')->group(function () {
+//     Route::get('/', 'filmController@index');
+//     Route::post('/', 'filmController@store');
+//     Route::get('/{id}', 'filmController@show');
+//     Route::get('/{id}/edit', 'filmController@edit');
+//     Route::put('/{id}', 'filmController@update');
+//     Route::delete('/{id}', 'filmController@destroy');
+// });
+
+route::get("index",[FilmController::class,"index"]);
+Route::post('/', [FilmController::class,"store"]);
+Route::get('/{id}', [FilmController::class,'show']);
+Route::get('/{id}/edit', [FilmController::class,'edit']);
+Route::put('/{id}', [FilmController::class,'update']);
+Route::delete('/{id}', [FilmController::class,'destroy']);

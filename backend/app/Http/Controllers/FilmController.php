@@ -5,17 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Film;
 use Illuminate\Http\Request;
 
-class FilmsController extends Controller
+class filmController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $films = Film::all();
+        $film = Film::all();
 
-        return view('films.index', [
-            'films' => $films,
+        return view('film.index', [
+            'film' => $film,
         ]);
     }
 
@@ -26,7 +26,7 @@ class FilmsController extends Controller
     {
         $film = new Film();
 
-        return view('films.create', [
+        return view('film.create', [
         'film' => $film,
     ]);
     }
@@ -37,7 +37,7 @@ class FilmsController extends Controller
     public function store(Request $request)
     {
         $film = new Film();
-
+    
         $film->titre = $request->input('titre');
         $film->realisateur = $request->input('realisateur');
         $film->duree_min = $request->input('duree_min');
@@ -46,9 +46,10 @@ class FilmsController extends Controller
     
         $film->save();
     
-        return redirect()->route('films.index');
+        return response()->json([
+            'data' => $film,
+        ]);
     }
-
     /**
      * Display the specified resource.
      */
@@ -56,7 +57,7 @@ class FilmsController extends Controller
     {
         $film = Film::findOrFail($id);
 
-        return view('films.show', ['film' => $film,]);
+        return view('film.show', ['film' => $film,]);
     }
 
     /**
@@ -66,7 +67,7 @@ class FilmsController extends Controller
     {
         $film = Film::findOrFail($id);
 
-        return view('films.edit', ['film' => $film,]);
+        return view('film.edit', ['film' => $film,]);
     }
 
     /**
@@ -78,7 +79,7 @@ class FilmsController extends Controller
         $film->fill($request->all());
         $film->save();
 
-        return redirect()->route('films.show', $film->id);
+        return redirect()->route('film.show', $film->id);
     }
 
     /**
@@ -89,6 +90,6 @@ class FilmsController extends Controller
         $film = Film::findOrFail($id);
         $film->delete();
 
-        return redirect()->route('films.index');
+        return redirect()->route('film.index');
     }
 }

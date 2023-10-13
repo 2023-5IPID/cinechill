@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('titre');
             $table->string('realisateur');
-            $table->string('durée_min');
+            $table->string('duree_min');
             $table->string('genre');
             $table->date('annee_sortie');
             $table->timestamps();
