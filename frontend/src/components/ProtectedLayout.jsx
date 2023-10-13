@@ -7,7 +7,7 @@ import DarkModeLayout from '../components/DarkmodeLayout'; // Import du composan
 
 
 export default function DefaultLayout() {
-    const { user, setUser } = useAuth();
+    const { user, setUser, isDarkMode } = useAuth();
 
     // check if user is logged in or not from server
     useEffect(() => {
@@ -45,12 +45,12 @@ export default function DefaultLayout() {
     };
     return (
         <>
-            <nav className="bg-gray border-gray-200 px-2 sm:px-4 py-2.5 bg-[#7C90A0] dark:bg-[#003049]">
+            <nav className="bg-gray border-gray-200 px-2 sm:px-4 py-2.5 bg-[#F3C677] dark:bg-black">
                 <div className="container flex flex-wrap items-center justify-between mx-auto">
 
 
                     <img
-                        src="../src/assets/LogoRed.png"
+                        src={isDarkMode ? '../src/assets/logoBlue.png' : '../src/assets/logoRed.png'}
                         className="h-6 mr-3 sm:h-9"
                         alt=" Logo"
                     />
@@ -114,7 +114,9 @@ export default function DefaultLayout() {
                 </div>
             </nav>
             <main className="container flex justify-center flex-col items-center mt-10 ">
+
                 <Outlet />
+
             </main>
         </>
     );

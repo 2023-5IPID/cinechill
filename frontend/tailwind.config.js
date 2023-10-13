@@ -17,7 +17,6 @@ module.exports = {
     },
     extend: {
       colors: {
-        // Remplacez les teintes de bleu par des teintes de rouge
         primary: {
           "50": "#fff5f5",
           "100": "#fed7d7",
@@ -29,6 +28,11 @@ module.exports = {
           "700": "#9b2c2c",
           "800": "#822727",
           "900": "#63171b",
+          "1000": "#696969",
+          "2000": "#040506"
+        },
+        backgroundColor: {
+          'grey': '#333745',
         },
       },
     },

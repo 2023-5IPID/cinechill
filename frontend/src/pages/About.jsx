@@ -27,6 +27,8 @@ export default function About() {
                 maiores vero sed perferendis quia nihil impedit deleniti doloremque
                 repellat! Ullam rem libero ut?
             </p>
+            <div className="dark:bg-gray-1000 h- container flex justify-center flex-col">
+            </div>
         </>
     );
 }
