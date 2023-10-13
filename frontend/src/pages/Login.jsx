@@ -55,7 +55,7 @@ export default function Login() {
 
 
                         <div className="w-full bg-white rounded-lg shadow-xl border md:mt-0 sm:max-w-md xl:p-0 bg-black border-black">
-                            <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+                            <div className="p-6 space-y-4 md:space-y-6 sm:p-8  bg-black border-black">
                                 <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl text-white">
                                     Connectez-vous à votre compte
                                 </h1>
