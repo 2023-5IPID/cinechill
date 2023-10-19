@@ -35,8 +35,8 @@ Route::middleware('auth:sanctum')->group(function () {
 // });
 
 route::get("index",[FilmController::class,"index"]);
-Route::post('/', [FilmController::class,"store"]);
 Route::get('/{id}', [FilmController::class,'show']);
+Route::post('/adfilm', [FilmController::class,"store"]);
 Route::get('/{id}/edit', [FilmController::class,'edit']);
 Route::put('/{id}', [FilmController::class,'update']);
 Route::delete('/{id}', [FilmController::class,'destroy']);

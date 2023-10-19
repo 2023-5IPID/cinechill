@@ -9,7 +9,7 @@ class Film extends Model
 {
     use HasFactory;
 
-    protected $table ="films";
+    // protected $table ="films";
     protected $fillable = [
         'titre',
         'realisateur',
