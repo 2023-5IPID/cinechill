@@ -15,9 +15,7 @@ class filmController extends Controller
     {
         $film = Film::all();
 
-        return view('index', [
-            'film' => $film,
-        ]);
+        return response()->json(['film' => $film]);
     }
 
     /**
