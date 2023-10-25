@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\SalleController;
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -37,3 +38,5 @@ Route::post('ajouterSalle',[SalleController::class,'insert']);
 Route::put('modifierSalle',[SalleController::class,'edit']);
 Route::delete('supprimerSalle',[SalleController::class,'delete']);
 Route::get('/salle/index',[SalleController::class,'select']);
+Route::delete('/{id}', [FilmController::class,'destroy']);
+
