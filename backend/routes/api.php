@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\SalleController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -25,18 +27,16 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [AuthController::class, 'user']);
 });
 
-// Route::prefix('api/films')->group(function () {
-//     Route::get('/', 'filmController@index');
-//     Route::post('/', 'filmController@store');
-//     Route::get('/{id}', 'filmController@show');
-//     Route::get('/{id}/edit', 'filmController@edit');
-//     Route::put('/{id}', 'filmController@update');
-//     Route::delete('/{id}', 'filmController@destroy');
-// });
-
 route::get("index",[FilmController::class,"index"]);
 Route::get('/{id}', [FilmController::class,'show']);
 Route::post('/addfilm', [FilmController::class,"store"]);
 Route::get('/{id}/edit', [FilmController::class,'edit']);
 Route::put('/{id}', [FilmController::class,'update']);
 Route::delete('/{id}', [FilmController::class,'destroy']);
+
+Route::post('ajouterSalle',[SalleController::class,'insert']);
+Route::put('modifierSalle',[SalleController::class,'edit']);
+Route::delete('supprimerSalle',[SalleController::class,'delete']);
+Route::get('/salle/index',[SalleController::class,'select']);
+Route::delete('/{id}', [FilmController::class,'destroy']);
+
