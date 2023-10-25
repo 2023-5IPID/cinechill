@@ -34,6 +34,6 @@ Route::put('/{id}', [FilmController::class,'update']);
 Route::delete('/{id}', [FilmController::class,'destroy']);
 
 Route::post('ajouterSalle',[SalleController::class,'insert']);
-Route::PUT('modifierSalle',[SalleController::class,'edit']);
-Route::DELETE('supprimerSalle',[SalleController::class,'delete']);
-Route::get('afficherSalle',[SalleController::class,'select']);
+Route::put('modifierSalle',[SalleController::class,'edit']);
+Route::delete('supprimerSalle',[SalleController::class,'delete']);
+Route::get('/salle/index',[SalleController::class,'select']);
