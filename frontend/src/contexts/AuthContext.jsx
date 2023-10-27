@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContent.Provider value={{ user, setUser, csrfToken }}>
+        <AuthContent.Provider value={{ user, setUser, csrfToken}}>
             {children}
         </AuthContent.Provider>
     );

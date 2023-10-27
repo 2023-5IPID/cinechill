@@ -82,7 +82,6 @@ export default function Login() {
 
                                 <form
                                     className="space-y-4 md:space-y-6"
-                                    action="#"
                                     method="post"
                                     onSubmit={handleSubmit}>
                                     <div>
@@ -127,6 +126,11 @@ export default function Login() {
                                             to="/register"
                                             className="font-medium text-primary-600 hover:underline text-primary-500">
                                             S'inscrire
+                                        </Link>
+                                        <Link
+                                            to="/forget-password"
+                                            className="font-medium text-primary-600 hover:underline text-primary-500">
+                                            Mot de passe oublié ?
                                         </Link>
                                     </p>
                                 </form>

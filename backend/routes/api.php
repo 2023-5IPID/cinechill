@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\SalleController;
+use App\Http\Controllers\ForgotPasswordController;
 
 
 /*
@@ -26,6 +27,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/user', [AuthController::class, 'user']);
 });
+
+Route::post('forgot-password', [ForgotPasswordController::class, 'submitForgetPasswordForm']); 
+Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm']);
+Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm']);
 
 route::get("/film",[FilmController::class,"index"]);
 Route::get('/film/{id}', [FilmController::class,'show']);
