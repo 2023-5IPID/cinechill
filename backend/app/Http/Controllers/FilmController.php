@@ -119,11 +119,11 @@ class filmController extends Controller
         return response()->json(['le film '. $film->titre.' à été supprimé' => true,]);
     }
 
-    public function addSalle (Request $request){
+    public function addSeance (Request $request){
 
         $film = Film::findOrFail($request->input('id_film'));
 
-        $film->salles()->attach($request->input('id_salle'));
+        $film->salles()->attach($request->input('id_salle'), ['horraire' => $request->input('horraire')]);
 
         return 'Nouvelle séance ajouté';
     }

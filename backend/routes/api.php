@@ -41,4 +41,4 @@ Route::get('/salle/{id}/edit',[SalleController::class,'edit']);
 Route::put('/salle/{id}',[SalleController::class,'update']);
 Route::delete('/salle/{id}',[SalleController::class,'destroy']);
 
-Route::post('/seance/add/id_salle',[filmController::class,'addSalle']);
+Route::post('/seance/add',[filmController::class,'addSeance']);

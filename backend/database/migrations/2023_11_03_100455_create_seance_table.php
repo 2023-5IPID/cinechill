@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('film_id')->constrained();
             $table->foreignId('salle_id')->constrained();
+            $table->dateTime('horraire');
             $table->timestamps();
         });
     }
