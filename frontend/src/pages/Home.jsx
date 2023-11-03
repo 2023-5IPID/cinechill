@@ -22,6 +22,12 @@ function Home() {
             });
     }, []);
 
+    const maxMovies = 12;
+    const groupedMovies = [];
+    for (let i = 0; i < movies.length && i < maxMovies; i += 3) {
+        groupedMovies.push(movies.slice(i, i + 3));
+    }
+
     return (
         <div className="App">
             <header>
@@ -30,18 +36,21 @@ function Home() {
             <div className="movie-list">
                 {loading ? (
                     <p>Chargement en cours...</p>
-                ) : movies.length === 0 ? (
+                ) : groupedMovies.length === 0 ? (
                     <div className="movie">
                         <h2>Film non disponible</h2>
                         <p>Désolé, il n'y a aucun film à l'affiche pour le moment.</p>
                     </div>
                 ) : (
-                    movies.map((movie) => (
-                        <div key={movie.id} className="movie">
-                            <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
-                            <h2>{movie.title}</h2>
-                            <p>{movie.overview}</p>
-                            <a href={`/film/${movie.id}`}>Voir les détails</a>
+                    groupedMovies.map((group, index) => (
+                        <div key={index} className="row">
+                            {group.map((movie) => (
+                                <div key={movie.id} className="movie">
+                                    <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
+                                    <h2>{movie.title}</h2>
+
+                                </div>
+                            ))}
                         </div>
                     ))
                 )}
