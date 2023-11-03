@@ -71,4 +71,6 @@ class SalleController extends Controller
 
         return response()->json(['la salle à été supprimé' => true,]);
     }
+
+    
 }

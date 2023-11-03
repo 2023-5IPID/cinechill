@@ -118,4 +118,13 @@ class filmController extends Controller
         //return redirect()->route('film.index');
         return response()->json(['le film '. $film->titre.' à été supprimé' => true,]);
     }
+
+    public function addSalle (Request $request){
+
+        $film = Film::findOrFail($request->input('id_film'));
+
+        $film->salles()->attach($request->input('id_salle'));
+
+        return 'Nouvelle séance ajouté';
+    }
 }

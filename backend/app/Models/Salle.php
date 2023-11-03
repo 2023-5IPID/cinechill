@@ -14,4 +14,16 @@ class Salle extends Model
         'places' => 'required|integer|min:1',
         'notes' => 'nullable|string',
     ];
+
+    public function films()
+    {
+        /**
+         * The roles that belong to the Film
+         *
+         * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+         */
+        return $this->belongsToMany(Film::class)
+        ->withTimestamps()
+        ->as('seance');
+    }
 }

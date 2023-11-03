@@ -17,4 +17,16 @@ class Film extends Model
         'genre',
         'annee_sortie',
     ];
+
+    public function salles()
+    {
+        /**
+         * The roles that belong to the Film
+         *
+         * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+         */
+        return $this->belongsToMany(Salle::class)
+        ->withTimestamps()
+        ->as('seance');
+    }
 }
