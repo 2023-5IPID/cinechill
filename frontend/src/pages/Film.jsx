@@ -164,6 +164,8 @@ const Film = () => {
         ) : groupedFilms.length === 0 ? (
           <div className="movie">
             <h2>Film non disponible</h2>
+
+            
             <p>Désolé, il n'y a aucun film disponible pour le moment.</p>
           </div>
         ) : (
