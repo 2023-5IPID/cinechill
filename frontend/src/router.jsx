@@ -5,6 +5,7 @@ import Profile from './pages/Profile';
 import Register from './pages/Register';
 import ProtectedLayout from './components/ProtectedLayout';
 import GuestLayout from './components/GuestLayout';
+import Film from './pages/Film';
 
 const router = createBrowserRouter([
     {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
                 path: '/register',
                 element: <Register />,
             },
+            {
+                path: '/film',
+                element:<Film />, // Use arrow function to correctly instantiate Film component
+            },
         ],
     },
     {
@@ -32,7 +37,7 @@ const router = createBrowserRouter([
             {
                 path: '/profile',
                 element: <Profile />,
-            },
+            },            
         ],
     },
 ]);
