@@ -64,6 +64,7 @@ function Home() {
                                         display: 'flex',
                                         flexDirection: 'column',
                                         position: 'relative',
+
                                     }}
                                     onMouseEnter={() => handleMouseEnter(movie)}
                                     onMouseLeave={handleMouseLeave}
@@ -73,7 +74,7 @@ function Home() {
                                         alt={movie.title}
                                         style={{
                                             cursor: 'pointer',
-                                            opacity: hoveredMovie && hoveredMovie.id !== movie.id ? 0.7 : 1,
+                                            opacity: hoveredMovie && hoveredMovie.id !== movie.id ? 0.8 : 1,
                                             transition: 'opacity 0.4s ease-in-out',
                                         }}
                                     />
