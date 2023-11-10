@@ -1,17 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import MovieDetails from '../components/MovieDetails';
+import Filters from '../components/FiltersLayout';
 
 function Home() {
     const [movies, setMovies] = useState([]);
     const [selectedMovie, setSelectedMovie] = useState(null);
-    const [hoveredMovie, setHoveredMovie] = useState(null); // État pour suivre l'image survolée
+    const [hoveredMovie, setHoveredMovie] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        // Remplacez 'YOUR_TMDB_API_KEY' par votre propre clé API TMDb.
+    const fetchMovies = (filters = {}) => {
         const tmdbApiKey = '8688e58fef221ff4ad0d063811690638';
-        const url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${tmdbApiKey}&language=fr-FR`;
+        let url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${tmdbApiKey}&language=fr-FR`;
+
+        if (filters.genre) {
+            url += `&with_genres=${filters.genre}`;
+        }
+        if (filters.duration) {
+            url += `&with_runtime.gte=${filters.duration.min}&with_runtime.lte=${filters.duration.max}`;
+        }
 
         axios
             .get(url)
@@ -23,8 +30,15 @@ function Home() {
                 console.error(error);
                 setLoading(false);
             });
+    };
+
+    useEffect(() => {
+        fetchMovies();
     }, []);
 
+    const handleFilterChange = (filters) => {
+        fetchMovies(filters);
+    };
     const maxMovies = 12;
     const groupedMovies = [];
     for (let i = 0; i < movies.length && i < maxMovies; i += 3) {
@@ -44,6 +58,10 @@ function Home() {
             <header>
                 <h1>Films à l'affiche</h1>
             </header>
+
+            <Filters handleFilterChange={handleFilterChange} />
+
+
             <div className="movie-list">
                 {loading ? (
                     <p>Chargement en cours...</p>

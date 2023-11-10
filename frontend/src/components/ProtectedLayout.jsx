@@ -27,6 +27,7 @@ export default function DefaultLayout() {
         })();
     }, []);
 
+
     // if user is not logged in, redirect to login page
     if (!user) {
         return <Navigate to="/" />;
@@ -104,7 +105,7 @@ export default function DefaultLayout() {
                                             ? 'block py-2 pl-3 pr-4 text-black  dark:text-white bg-[#780000] rounded md:bg-transparent md:text-black md:p-0 text-white'
                                             : 'block py-2 pl-3 pr-4 rounded md:bg-transparent md:p-0 text-[#003049] dark:text-[#780000] md:hover:text-black md:dark:hover:text-white'
                                     }>
-                                    About
+                                    A propos
                                 </NavLink>
                             </li>
 
@@ -113,14 +114,14 @@ export default function DefaultLayout() {
                                     onClick={handleLogout}
                                     href="#"
                                     className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-black md:p-0 text-[#003049] dark:text-[#780000] md:hover:text-white hover:bg-gray-700 hover:text-white md:hover:bg-transparent md:dark:hover:text-white">
-                                    Logout
+                                    Se deconnecter
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </nav>
-            <main className="container flex justify-end items-center mt-10 ">
+            <main className="container flex justify-center items-center mt-10 ">
                 <Outlet />
             </main>
 
