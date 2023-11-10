@@ -6,6 +6,7 @@ import Register from './pages/Register';
 import ProtectedLayout from './components/ProtectedLayout';
 import GuestLayout from './components/GuestLayout';
 import Film from './pages/Film';
+import UpdateFilm from './pages/UpdateFilm';
 
 const router = createBrowserRouter([
     {
@@ -22,8 +23,11 @@ const router = createBrowserRouter([
             },
             {
                 path: '/film',
-                element:<Film />, // Use arrow function to correctly instantiate Film component
-            },
+                element:<Film />, 
+            },            {
+                path: '/update/:id',
+                element:<UpdateFilm />, 
+            }
         ],
     },
     {
