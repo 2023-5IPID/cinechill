@@ -17,6 +17,7 @@
     "react-cookies": "^0.1.1",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.16.0",
+    "reactstrap": "^9.2.1",
     "tailwind": "^4.0.0"
   },
   "devDependencies": {

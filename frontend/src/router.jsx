@@ -7,6 +7,7 @@ import ProtectedLayout from './components/ProtectedLayout';
 import GuestLayout from './components/GuestLayout';
 import Film from './pages/Film';
 import UpdateFilm from './pages/UpdateFilm';
+import PresentationFilm from './pages/PresentationFilm';
 
 const router = createBrowserRouter([
     {
@@ -24,10 +25,15 @@ const router = createBrowserRouter([
             {
                 path: '/film',
                 element:<Film />, 
-            },            {
+            },            
+            {
                 path: '/update/:id',
                 element:<UpdateFilm />, 
-            }
+            },
+            {
+                path: '/presentationFilm/:id',
+                element:<PresentationFilm />, 
+            },
         ],
     },
     {
