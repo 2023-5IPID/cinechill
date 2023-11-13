@@ -121,6 +121,7 @@ export default function Login() {
                                         className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-primary-600 hover:bg-primary-700 focus:ring-primary-800">
                                         Se connecter
                                     </button>
+                                   
                                     <p className="text-sm font-light text-gray-500 text-gray-400">
                                         Vous n'avez pas encore de compte?{' '}
                                         <Link
@@ -129,7 +130,16 @@ export default function Login() {
                                             S'inscrire
                                         </Link>
                                     </p>
+                                    <p className="text-sm font-light text-gray-500 text-gray-400">
+                                        il faudra un bouton admin {' '}
+                                        <Link
+                                            to="/film"
+                                            className="font-medium text-primary-600 hover:underline text-primary-500">
+                                            voir les films
+                                        </Link>
+                                    </p>
                                 </form>
+                                
                             </div>
                         </div>
                     </div>
