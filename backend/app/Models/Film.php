@@ -27,6 +27,8 @@ class Film extends Model
          * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
          */
         return $this->belongsToMany(Salle::class)
+        ->withPivot('id')
+        ->withPivot('horraire')
         ->withTimestamps()
         ->as('seance');
     }
