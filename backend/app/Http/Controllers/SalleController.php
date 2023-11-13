@@ -72,4 +72,9 @@ class SalleController extends Controller
         return response()->json(['la salle à été supprimé' => true,]);
     }
     
+    public function showSeanceBySalle (string $id){
+        $salle = Salle::findOrFail($id);
+        
+        return $salle->films()->get();
+    }
 }

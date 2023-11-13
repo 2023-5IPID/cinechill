@@ -125,6 +125,49 @@ class filmController extends Controller
 
         $film->salles()->attach($request->input('id_salle'), ['horraire' => $request->input('horraire')]);
 
-        return 'Nouvelle séance ajouté';
+        return 'Nouvelle séance ajoutée';
+    }
+
+    public function deleteSeanceAll (string $id){
+
+        $film = Film::findOrFail($id);
+
+        $film->salles()->detach();
+
+        return 'Séances supprimées';
+    }
+
+    public function deleteSeance (Request $request){
+
+        $film = Film::findOrFail($request->input('id_film'));
+
+        $film->salles()->detach($request->input('id_salle'), ['horraire' => $request->input('horraire')]);
+
+        return 'Séance supprimée';
+    }
+
+    public function updateSeance (Request $request){
+
+        $film = Film::findOrFail($request->input('id_film'));
+
+        $film->salles()->wherePivot('id', $request->input('id_seance'))->sync([$request->input('id_salle') => ['horraire' => $request->input('horraire')]]);
+
+        return 'Séance modifié';
+    }
+    
+    public function showSeanceByFilm (string $id){
+        $film = Film::findOrFail($id);
+        
+        return $film->salles()->get();
+    }
+
+    public function editSeance (Request $request){
+
+        $film = Film::findOrFail($request->input('id_film'))
+        ->salles()
+        ->wherePivot('id', $request->input('id_seance'))
+        ->get();
+        
+        return $film;
     }
 }
