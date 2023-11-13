@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class Film extends Model
 {
@@ -17,4 +18,18 @@ class Film extends Model
         'genre',
         'annee_sortie',
     ];
+
+    public function salles()
+    {
+        /**
+         * The roles that belong to the Film
+         *
+         * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+         */
+        return $this->belongsToMany(Salle::class)
+        ->withPivot('id')
+        ->withPivot('horraire')
+        ->withTimestamps()
+        ->as('seance');
+    }
 }

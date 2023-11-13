@@ -27,6 +27,7 @@ export default function DefaultLayout() {
         })();
     }, []);
 
+
     // if user is not logged in, redirect to login page
     if (!user) {
         return <Navigate to="/" />;
@@ -50,7 +51,7 @@ export default function DefaultLayout() {
                 <div className="container flex flex-wrap items-center justify-between mx-auto">
 
 
-                 <DarkModeLayout /> { }
+                    <DarkModeLayout /> { }
 
 
                     <button
@@ -73,14 +74,25 @@ export default function DefaultLayout() {
                         </svg>
                     </button>
                     <div className="hidden w-full md:block md:w-auto" id="navbar-default">
-                        <ul className="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-md md:font-medium md:border-0 md:bg-white bg-gray-800 md:bg-[#F3C677] md:dark:bg-black border-gray-700">
+                        <ul style={{ backgroundColor: 'rgba(0, 0, 0, 0)' }} className="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-md md:font-medium md:border-0 md:bg-white bg-gray-800 md:dark:bg-black md:bg-[#F3C677] border-gray-700">
+                            <li>
+                                <NavLink
+                                    to="/home"
+                                    className={({ isActive }) =>
+                                        isActive
+                                            ? 'block py-2 pl-3 pr-4 text-black  dark:text-white bg-[#780000] rounded md:bg-transparent md:text-black md:p-0 text-white'
+                                            : 'block py-2 pl-3 pr-4 rounded md:bg-transparent md:p-0 text-[#003049] dark:text-[#780000] md:hover:text- md:dark:hover:text-white'
+                                    }>
+                                    Home
+                                </NavLink>
+                            </li>
                             <li>
                                 <NavLink
                                     to="/profile"
                                     className={({ isActive }) =>
                                         isActive
-                                            ? 'block py-2 pl-3 pr-4 text-white bg-[#780000] rounded md:bg-transparent md:text-white md:p-0 text-white'
-                                            : 'block py-2 pl-3 pr-4 rounded md:bg-transparent md:p-0 text-[#003049] dark:text-[#780000] md:hover:text-white'
+                                            ? 'block py-2 pl-3 pr-4 text-black  dark:text-white bg-[#780000] rounded md:bg-transparent md:text-black md:p-0 text-black'
+                                            : 'block py-2 pl-3 pr-4 rounded md:bg-transparent md:p-0 text-[#003049] dark:text-[#780000] md:hover:text-black md:dark:hover:text-white'
                                     }>
                                     Profile
                                 </NavLink>
@@ -90,10 +102,10 @@ export default function DefaultLayout() {
                                     to="/about"
                                     className={({ isActive }) =>
                                         isActive
-                                            ? 'block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-white md:p-0 text-white'
-                                            : 'block py-2 pl-3 pr-4 rounded md:bg-transparent md:p-0 text-[#003049] dark:text-[#780000] md:hover:text-white'
+                                            ? 'block py-2 pl-3 pr-4 text-black  dark:text-white bg-[#780000] rounded md:bg-transparent md:text-black md:p-0 text-white'
+                                            : 'block py-2 pl-3 pr-4 rounded md:bg-transparent md:p-0 text-[#003049] dark:text-[#780000] md:hover:text-black md:dark:hover:text-white'
                                     }>
-                                    About
+                                    A propos
                                 </NavLink>
                             </li>
 
@@ -101,20 +113,18 @@ export default function DefaultLayout() {
                                 <a
                                     onClick={handleLogout}
                                     href="#"
-                                    className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-white md:p-0 text-[#003049] dark:text-[#780000] md:hover:text-white hover:bg-gray-700 hover:text-white md:hover:bg-transparent">
-                                    Logout
+                                    className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-black md:p-0 text-[#003049] dark:text-[#780000] md:hover:text-white hover:bg-gray-700 hover:text-white md:hover:bg-transparent md:dark:hover:text-white">
+                                    Se deconnecter
                                 </a>
                             </li>
-                            
                         </ul>
                     </div>
                 </div>
             </nav>
-            <main className="container flex justify-center flex-col items-center mt-10 ">
-
+            <main className="mx-auto container flex justify-center items-center mt-10 ">
                 <Outlet />
-
             </main>
+
         </>
     );
 }

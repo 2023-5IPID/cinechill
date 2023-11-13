@@ -35,7 +35,7 @@ class SalleController extends Controller
         $salle->notes = $request->notes;
 
         $salle->save();
-        return response()->json('Added');
+        return response()->json(['success' => 'La salle a été ajouté avec succès.']);
     }
 
     public function edit(string $id)
@@ -70,5 +70,11 @@ class SalleController extends Controller
         $salle = Salle::findorfail($id)->delete();
 
         return response()->json(['la salle à été supprimé' => true,]);
+    }
+    
+    public function showSeanceBySalle (string $id){
+        $salle = Salle::findOrFail($id);
+        
+        return $salle->films()->get();
     }
 }
