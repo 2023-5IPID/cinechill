@@ -121,7 +121,7 @@ export default function DefaultLayout() {
                     </div>
                 </div>
             </nav>
-            <main className="container flex justify-center items-center mt-10 ">
+            <main className="mx-auto container flex justify-center items-center mt-10 ">
                 <Outlet />
             </main>
 
