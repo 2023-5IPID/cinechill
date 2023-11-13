@@ -41,7 +41,7 @@ Route::get('/salle/{id}/edit',[SalleController::class,'edit']);
 Route::put('/salle/{id}',[SalleController::class,'update']);
 Route::delete('/salle/{id}',[SalleController::class,'destroy']);
 
-Route::get('/seance/{id}',[FilmController::class,'showSeance']);
+Route::get('/seance',[FilmController::class,'editSeance']);
 Route::get('/seance/{id}/bySalle',[SalleController::class,'showSeanceBySalle']);
 Route::get('/seance/{id}/byFilm',[FilmController::class,'showSeanceByFilm']);
 Route::post('/seance/add',[filmController::class,'addSeance']);

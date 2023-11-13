@@ -161,8 +161,12 @@ class filmController extends Controller
         return $film->salles()->get();
     }
 
-    public function showSeance (string $id){
-        $film = Film::with("salles")->wherePivot('id', $id);
+    public function editSeance (Request $request){
+
+        $film = Film::findOrFail($request->input('id_film'))
+        ->salles()
+        ->wherePivot('id', $request->input('id_seance'))
+        ->get();
         
         return $film;
     }
