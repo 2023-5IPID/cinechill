@@ -27,7 +27,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [AuthController::class, 'user']);
 });
 
-route::get("/film",[FilmController::class,"index"]);
+Route::get("/film",[FilmController::class,"index"]);
 Route::get('/film/{id}', [FilmController::class,'show']);
 Route::post('/film/add', [FilmController::class,"store"]);
 Route::get('/film/{id}/edit', [FilmController::class,'edit']);
