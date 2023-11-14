@@ -24,9 +24,10 @@ export default function Login() {
         };
         await csrfToken();
         try {
-            const resp = await axios.post('/login', body);
+            const resp = await axios.post('/api/login', body);
             if (resp.status === 200) {
                 setUser(resp.data.user);
+                debugger
                 return <Navigate to="/profile" />;
             }
         } catch (error) {
