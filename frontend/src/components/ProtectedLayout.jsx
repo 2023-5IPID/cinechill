@@ -7,18 +7,24 @@ import DarkModeLayout from '../components/DarkmodeLayout'; // Import du composan
 
 
 export default function DefaultLayout() {
-    const { user, setUser, isDarkMode } = useAuth();
+    const { user, setUser, isDarkMode, csrfToken } = useAuth();
+
+
+    console.log(user);
+    console.log(csrfToken)
 
 
     // check if user is logged in or not from server
     useEffect(() => {
         (async () => {
             try {
-                const resp = await axios.get('/user');
+                const resp = await axios.get('/api/user');
+                debugger
                 if (resp.status === 200) {
                     setUser(resp.data.data);
                 }
             } catch (error) {
+                debugger
                 if (error.response.status === 401) {
                     localStorage.removeItem('user');
                     window.location.href = '/';
@@ -36,7 +42,7 @@ export default function DefaultLayout() {
     // logout user
     const handleLogout = async () => {
         try {
-            const resp = await axios.post('/logout');
+            const resp = await axios.post('/api/logout');
             if (resp.status === 200) {
                 localStorage.removeItem('user');
                 window.location.href = '/';

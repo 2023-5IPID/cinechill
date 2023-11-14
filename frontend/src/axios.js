@@ -9,4 +9,13 @@ const axios = Axios.create({
     },
 });
 
+axios.interceptors.request.use((config) => {
+    const token = localStorage.getItem("auth_token");
+    if (token) {
+        config.headers.Authorization = `${token}`;
+        config.headers["Content-Type"] = "application/json";
+    }
+    return config;
+});
+
 export default axios;
