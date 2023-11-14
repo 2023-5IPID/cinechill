@@ -129,6 +129,22 @@ export default function Login() {
                                             S'inscrire
                                         </Link>
                                     </p>
+                                        <p className="text-sm font-light text-gray-500 text-gray-400">
+                                        il faudra un bouton admin {' '}
+                                        <Link
+                                            to="/film"
+                                            className="font-medium text-primary-600 hover:underline text-primary-500">
+                                            voir les films
+                                        </Link>
+                                        </p>
+                                        <p className="text-sm font-light text-gray-500 text-gray-400">
+                                            Gestion de salle : {' '}
+                                            <Link
+                                                to="/salle"
+                                                className="font-medium text-primary-600 hover:underline text-primary-500">
+                                                Page de gestion de salles
+                                            </Link>
+                                        </p>
                                 </form>
                             </div>
                         </div>

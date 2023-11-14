@@ -5,6 +5,8 @@ import Profile from './pages/Profile';
 import Register from './pages/Register';
 import ProtectedLayout from './components/ProtectedLayout';
 import GuestLayout from './components/GuestLayout';
+import Salle from './pages/Salle';
+import UpdateSalle from './pages/UpdateSalle';
 
 const router = createBrowserRouter([
     {
@@ -19,6 +21,14 @@ const router = createBrowserRouter([
                 path: '/register',
                 element: <Register />,
             },
+            {
+                path: '/salle',
+                element: <Salle />,
+            },
+            {
+                path: '/update/:id',
+                element:<UpdateSalle/>
+            }
         ],
     },
     {
