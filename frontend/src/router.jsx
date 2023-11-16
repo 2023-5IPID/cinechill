@@ -6,7 +6,7 @@ import Register from './pages/Register';
 import ProtectedLayout from './components/ProtectedLayout';
 import GuestLayout from './components/GuestLayout';
 import Salle from './pages/Salle';
-import UpdateSalle from './pages/UpdateSalle';
+import UpdateSalle from './pages/updateSalle';
 
 const router = createBrowserRouter([
     {
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
                 element: <Salle />,
             },
             {
-                path: '/update/:id',
+                path: '/updateSalle/:id',
                 element:<UpdateSalle/>
             }
         ],

@@ -1,7 +1,7 @@
 import 'tailwindcss/tailwind.css';
 import React, { useState, useEffect } from 'react';
 import axios from '../axios';
-
+import { useNavigate } from 'react-router-dom';
 
 //--------------------------------------------------------//
 
@@ -13,6 +13,8 @@ const Salle = () => {
     const[places, setPlaces] = useState('');
     const[notes, setNotes] = useState('');
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         const url = "http://127.0.0.1:8000/api/salle";
 
@@ -20,7 +22,6 @@ const Salle = () => {
     axios
       .get(url)
       .then((response) => {
-        console.log(response.data);
         setSalles(response.data.salles);
         setLoading(false);
       })
@@ -121,10 +122,7 @@ const handleSubmit = async (event) => {
                                 </button>
                             </td>
                             <td>
-                            <button
-                          onClick={() => navigate(`/update:${salle.id}`)}>
-                          Modifier
-                        </button>
+                            <button onClick={() => navigate(`/updateSalle/${salle.id}`)}>Modifier </button>
                             </td>
                         </tr>
                     ))

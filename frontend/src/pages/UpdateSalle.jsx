@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from '../axios';
 import { useNavigate, useParams } from 'react-router-dom';
 
-
 const UpdateSalle = () => {
     const{id} = useParams();
     const navigate = useNavigate();
@@ -50,15 +49,12 @@ const UpdateSalle = () => {
         };
     
         try {
-          await axios.put("http://127.0.0.1:8000/api/Salle/" + id, updatedSalle);
+          await axios.put(`http://127.0.0.1:8000/api/salle/${id}`, updatedSalle);
           alert("les modification on été faite")
           navigate("/salle");
         } catch (err) {
-          console.log(updatedSalle)
         }
       };
-
-    console.log(salle);
 
     return (
         <div className="text-center">
@@ -71,7 +67,7 @@ const UpdateSalle = () => {
           <br />
           <br />
           <strong>Modifier Salle</strong>
-          <form>
+          <form onSubmit={(e) => onSubmitChange(e)}>
             <div className="row mb-3">
               <div className="col">
                 <label className="form-label">Nom</label>
@@ -120,8 +116,7 @@ const UpdateSalle = () => {
               </div>
             </div>  
             <button type="submit"
-              className="text-center"
-              onClick={(e) => onSubmitChange(e)}>
+              className="text-center">
               Update
             </button>
           </form>
