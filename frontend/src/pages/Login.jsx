@@ -3,6 +3,7 @@ import { Link, Navigate } from 'react-router-dom';
 import axios from '../axios';
 import { useAuth } from '../contexts/AuthContext';
 import 'tailwindcss/tailwind.css';
+import Cookies from 'js-cookie';
 
 
 
@@ -22,13 +23,11 @@ export default function Login() {
             email: email.value,
             password: password.value,
         };
-        debugger
         await csrfToken();
         try {
-            const resp = await axios.post('/api/login', body);
+            const resp = await axios.post('/login', body);
             if (resp.status === 200) {
                 setUser(resp.data.user);
-                debugger
                 return <Navigate to="/profile" />;
             }
         } catch (error) {

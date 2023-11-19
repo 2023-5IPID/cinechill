@@ -24,7 +24,7 @@ const PresentationFilm = () => {
   
     const fetchFilm = async () => {
       try {
-        const result = await axios.get("http://127.0.0.1:8000/api/film/" + id);
+        const result = await axios.get("/film/" + id);
         const filmData = result.data.data;
   
         setFilm({

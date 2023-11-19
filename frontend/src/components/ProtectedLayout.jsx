@@ -4,35 +4,11 @@ import { NavLink } from 'react-router-dom';
 import axios from '../axios';
 import { useAuth } from '../contexts/AuthContext';
 import DarkModeLayout from '../components/DarkmodeLayout'; // Import du composant DarkModeLayout
+import Cookies from 'js-cookie';
 
 
 export default function DefaultLayout() {
-    const { user, setUser, isDarkMode, csrfToken } = useAuth();
-
-
-    console.log(user);
-    console.log(csrfToken)
-
-
-    // check if user is logged in or not from server
-    useEffect(() => {
-        (async () => {
-            try {
-                const resp = await axios.get('/api/user');
-                debugger
-                if (resp.status === 200) {
-                    setUser(resp.data.data);
-                }
-            } catch (error) {
-                debugger
-                if (error.response.status === 401) {
-                    localStorage.removeItem('user');
-                    window.location.href = '/';
-                }
-            }
-        })();
-    }, []);
-
+    const { user, setUser, isDarkMode } = useAuth();
 
     // if user is not logged in, redirect to login page
     if (!user) {
@@ -41,16 +17,16 @@ export default function DefaultLayout() {
 
     // logout user
     const handleLogout = async () => {
-        try {
-            const resp = await axios.post('/api/logout');
-            if (resp.status === 200) {
-                localStorage.removeItem('user');
-                window.location.href = '/';
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    };
+		try {
+			const resp = await axios.post('/logout');
+			if (resp.status === 204) {
+				localStorage.removeItem('user');
+				window.location.href = '/';
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
     return (
         <>
             <nav className="bg-gray border-gray-200 px-2 sm:px-4 py-2.5 bg-[#F3C677] dark:bg-black">

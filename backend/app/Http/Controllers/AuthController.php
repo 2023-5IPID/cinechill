@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
-use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -34,36 +35,32 @@ class AuthController extends Controller
     public function login(LoginRequest $request) {
         $data = $request->validated();
 
-        $user = User::where('email', $data['email'])->first();
-
-        if (!$user || !Hash::check($data['password'], $user->password)) {
+        if (Auth::attempt($data)) {
+            session()->regenerate();
             return response()->json([
-                'message' => 'Email or password is incorrect!'
-            ], 401);
+                "message" => "User successfully connected",
+                "user" => Auth::user()
+            ], 200);
+            //return $this->sendResponse(\Illuminate\Support\Facades\Auth::user(), 'User successfully connected');
         }
-
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-        $cookie = cookie('token', $token, 60 * 24); // 1 day
-
-        return response()->json([
-            'user' => new UserResource($user),
-        ])->withCookie($cookie);
+        else {
+            return response()->json([
+                "message" => "Authentication failure"
+            ], 401);
+            //return $this->sendError('Authentication failure');
+        }
     }
 
     // logout a user method
     public function logout(Request $request) {
-        $request->user()->currentAccessToken()->delete();
+        try {
+            auth('web')->logout();
+            return response()->json(['message' => 'User successfully disconnected'], 204);
+        } catch (\Exception $e) {
+            // Handle any exceptions that might occur during logout.
+            return response()->json(['message' => 'Error logging out'], 500); // Use an appropriate HTTP status code.
+        } 
 
-        $cookie = cookie()->forget('token');
-
-        return response()->json([
-            'message' => 'Logged out successfully!'
-        ])->withCookie($cookie);
-    }
-
-    // get the authenticated user method
-    public function user(Request $request) {
-        return new UserResource($request->user());
+        return response()->json(['message' => 'test']);
     }
 }

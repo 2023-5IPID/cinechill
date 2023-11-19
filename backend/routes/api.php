@@ -21,11 +21,8 @@ use App\Http\Controllers\SalleController;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout']);
 
-Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/logout', [AuthController::class, 'logout']);
-    Route::get('/user', [AuthController::class, 'user']);
-});
 
 Route::get("/film", [FilmController::class, "index"]);
 Route::get('/film/{id}', [FilmController::class, 'show']);
