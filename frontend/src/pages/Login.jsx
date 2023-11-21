@@ -23,12 +23,15 @@ export default function Login() {
             email: email.value,
             password: password.value,
         };
+
         await csrfToken();
         try {
             const resp = await axios.post('/login', body);
             if (resp.status === 200) {
                 setUser(resp.data.user);
                 return <Navigate to="/profile" />;
+
+
             }
         } catch (error) {
             if (error.response.status === 401) {

@@ -8,7 +8,32 @@ import Cookies from 'js-cookie';
 
 
 export default function DefaultLayout() {
-    const { user, setUser, isDarkMode } = useAuth();
+    const { user, setUser, isDarkMode, csrfToken } = useAuth();
+
+
+    console.log(user);
+    console.log(csrfToken)
+
+
+    // check if user is logged in or not from server
+    useEffect(() => {
+        (async () => {
+            try {
+                const resp = await axios.get('/api/user');
+                debugger
+                if (resp.status === 200) {
+                    setUser(resp.data.data);
+                }
+            } catch (error) {
+                debugger
+                if (error.response.status === 401) {
+                    localStorage.removeItem('user');
+                    window.location.href = '/';
+                }
+            }
+        })();
+    }, []);
+
 
     // if user is not logged in, redirect to login page
     if (!user) {
