@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import axios from '../axios';
 import { useNavigate } from 'react-router-dom';
 
+
 // fetch('http://127.0.0.1:8000/api/film').then((response)=>{console.log(response.json())}) 
 
 const Film = () => {

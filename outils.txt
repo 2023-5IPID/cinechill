@@ -2,7 +2,7 @@ outils pour mieux comprendre git : Oh My Git
 c'est un petit jeux a télécharger qui permet de mieux comprendre
 les différentes commandes git 
 PS : petit tips essayé de taper les commandes vous-même, sans utiliser
-les cartes, ce sera plus éducatif ;).
+les cartes, ce sera plus éducatif ;.
 
 pour bien commencer le projet voici quelque commande utile :
 - git clone LienDuRepoGit.com (dans un dossier choisi au préalable sur votre ordi)

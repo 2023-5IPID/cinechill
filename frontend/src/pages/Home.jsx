@@ -3,11 +3,13 @@ import axios from 'axios';
 import MovieDetails from '../components/MovieDetails';
 import Filters from '../components/FiltersLayout';
 
+
 function Home() {
     const [movies, setMovies] = useState([]);
     const [selectedMovie, setSelectedMovie] = useState(null);
     const [hoveredMovie, setHoveredMovie] = useState(null);
     const [loading, setLoading] = useState(true);
+
 
     const fetchMovies = (filters = {}) => {
         const tmdbApiKey = '8688e58fef221ff4ad0d063811690638';

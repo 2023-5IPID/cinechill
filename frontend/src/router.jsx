@@ -10,6 +10,8 @@ import Film from './pages/Film';
 import UpdateFilm from './pages/UpdateFilm';
 import PresentationFilm from './pages/PresentationFilm';
 
+
+
 const router = createBrowserRouter([
     {
         path: '/',
@@ -25,15 +27,15 @@ const router = createBrowserRouter([
             },
             {
                 path: '/film',
-                element:<Film />, 
-            },            
+                element: <Film />,
+            },
             {
                 path: '/update/:id',
-                element:<UpdateFilm />, 
+                element: <UpdateFilm />,
             },
             {
                 path: '/presentationFilm/:id',
-                element:<PresentationFilm />, 
+                element: <PresentationFilm />,
             },
         ],
     },
@@ -52,7 +54,7 @@ const router = createBrowserRouter([
             {
                 path: '/home',
                 element: <Home />,
-            },
+            }
         ],
     },
 ]);

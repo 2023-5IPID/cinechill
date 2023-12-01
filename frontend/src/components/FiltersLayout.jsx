@@ -16,7 +16,7 @@ function Filters({ handleFilterChange }) {
             <select onChange={handleGenreChange}>
                 <option value="28">Action</option>
                 <option value="29">Guerre</option>
-                <option value="30">Action</option>
+                <option value="30">Romance</option>
                 {/* Autres options de genres */}
             </select>
 
