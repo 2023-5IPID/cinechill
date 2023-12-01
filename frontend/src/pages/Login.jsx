@@ -3,7 +3,6 @@ import { Link, Navigate } from 'react-router-dom';
 import axios from '../axios';
 import { useAuth } from '../contexts/AuthContext';
 import 'tailwindcss/tailwind.css';
-import Cookies from 'js-cookie';
 
 
 

@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import axios from '../axios';
 import { useAuth } from '../contexts/AuthContext';
 import DarkModeLayout from '../components/DarkmodeLayout'; // Import du composant DarkModeLayout
-import Cookies from 'js-cookie';
+
 
 
 export default function DefaultLayout() {
