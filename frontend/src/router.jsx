@@ -9,6 +9,9 @@ import GuestLayout from './components/GuestLayout';
 import Film from './pages/Film';
 import UpdateFilm from './pages/UpdateFilm';
 import PresentationFilm from './pages/PresentationFilm';
+import Admin from './pages/Admin';
+import AdminLayout from './components/AdminLayout';
+import AuthLayout from './components/AuthLayout';
 
 const router = createBrowserRouter([
     {
@@ -17,11 +20,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <Login />,
-            },
-            {
-                path: '/register',
-                element: <Register />,
+                element: <Home />,
             },
             {
                 path: '/film',
@@ -50,9 +49,29 @@ const router = createBrowserRouter([
                 path: '/profile',
                 element: <Profile />,
             },
+        ],
+    },
+    {
+        path: '/',
+        element: <AdminLayout />,
+        children: [
             {
-                path: '/home',
-                element: <Home />,
+                path: '/Admin',
+                element: <Admin />,
+            },
+        ],
+    },
+    {
+        path: '/',
+        element: <AuthLayout />,
+        children: [
+            {
+                path: '/login',
+                element: <Login />,
+            },
+            {
+                path: '/register',
+                element: <Register />,
             },
         ],
     },

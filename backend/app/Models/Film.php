@@ -13,10 +13,11 @@ class Film extends Model
     // protected $table ="films";
     protected $fillable = [
         'titre',
-        'realisateur',
+        'resume',
         'duree_min',
         'genre',
         'annee_sortie',
+        'poster_path',
     ];
 
     public function salles()
@@ -26,10 +27,6 @@ class Film extends Model
          *
          * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
          */
-        return $this->belongsToMany(Salle::class)
-        ->withPivot('id')
-        ->withPivot('horraire')
-        ->withTimestamps()
-        ->as('seance');
+        return $this->belongsToMany(Salle::class, 'film_salle', 'salle_id', 'film_id');
     }
 }

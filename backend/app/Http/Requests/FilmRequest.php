@@ -23,10 +23,11 @@ class FilmRequest extends FormRequest
     {
         return [
             'titre'=> 'required|string|max:255',
-            'realisateur'=> 'required|string|max:255',
+            'resume'=> 'required|string|max:65535',
             'duree_min'=> 'required|numeric',
             'genre'=> 'required|string|max:255',
             'annee_sortie'=> 'required|date',
+            'poster_path'=> 'required|string|max:255',
         ];
     }
 }
