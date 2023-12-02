@@ -23,7 +23,7 @@ function Home() {
         }
 
         axios
-            .get(url)
+            .get(url, { withCredentials: false })
             .then((response) => {
                 setMovies(response.data.results);
                 setLoading(false);
@@ -57,11 +57,14 @@ function Home() {
 
     return (
         <div className="App">
-            <header>
-                <h1>Films à l'affiche</h1>
+            <header className="flex items-center justify-center">
+                <h1 className="dark:text-white">Films à l'affiche</h1>
             </header>
+            <div className="flex items-center justify-center">
+                <Filters handleFilterChange={handleFilterChange} /><br /></div>
 
-            <Filters handleFilterChange={handleFilterChange} />
+
+
 
 
             <div className="movie-list">
@@ -124,7 +127,7 @@ function Home() {
                     ))
                 )}
             </div>
-        </div>
+        </div >
     );
 }
 
