@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import MovieDetails from '../components/MovieDetails';
 import Filters from '../components/FiltersLayout';
+import CarouselLayout from '../components/CarouselLayout';
+
+
 
 
 function Home() {
@@ -57,9 +60,14 @@ function Home() {
 
     return (
         <div className="App">
+            <CarouselLayout />
+            <br /><br /><br />
             <header className="flex items-center justify-center">
                 <h1 className="dark:text-white">Films à l'affiche</h1>
             </header>
+
+
+
             <div className="flex items-center justify-center">
                 <Filters handleFilterChange={handleFilterChange} /><br /></div>
 
