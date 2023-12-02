@@ -1,14 +1,82 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Button, Offcanvas, Form } from 'react-bootstrap';
+
+
+function isColorDark(color) {
+    const [r, g, b] = hexToRgb(color);
+    const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+    return brightness < 128;
+}
+function hexToRgb(hex) {
+    hex = hex.replace(/^#/, '');
+
+    const bigint = parseInt(hex, 16);
+    const r = (bigint >> 16) & 255;
+    const g = (bigint >> 8) & 255;
+    const b = bigint & 255;
+
+    return [r, g, b];
+}
 
 function MovieDetails({ movie, onClose, imageWidth, imageHeight }) {
     const [show, setShow] = useState(false);
+    const [posterColor, setPosterColor] = useState('white');
+    const [colorFetched, setColorFetched] = useState(false);
     const [reservationDate, setReservationDate] = useState('');
     const [reservationHour, setReservationHour] = useState('');
     const [reservationRoom, setReservationRoom] = useState('');
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const canvasRef = useRef(null);
+
+    useEffect(() => {
+        const img = new Image();
+        img.crossOrigin = 'Anonymous';
+
+        img.onload = () => {
+            if (img.width > 0 && img.height > 0) {
+                const canvas = canvasRef.current;
+                canvas.width = img.width;
+                canvas.height = img.height;
+                const context = canvas.getContext('2d');
+                context.drawImage(img, 0, 0, img.width, img.height);
+
+                const imageData = context.getImageData(0, 0, img.width, img.height).data;
+
+                let totalRed = 0;
+                let totalGreen = 0;
+                let totalBlue = 0;
+
+                for (let i = 0; i < imageData.length; i += 4) {
+                    totalRed += imageData[i];
+                    totalGreen += imageData[i + 1];
+                    totalBlue += imageData[i + 2];
+                }
+
+                const averageRed = Math.round(totalRed / (imageData.length / 4));
+                const averageGreen = Math.round(totalGreen / (imageData.length / 4));
+                const averageBlue = Math.round(totalBlue / (imageData.length / 4));
+
+                const averageColor = `rgba(${averageRed}, ${averageGreen}, ${averageBlue})`;
+                setPosterColor(averageColor);
+                setColorFetched(true);
+            } else {
+                console.error('Erreur lors du chargement de l\'image');
+            }
+        };
+
+        img.src = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
+    }, [movie.poster_path]);
+
+
+    const textColor = isColorDark(posterColor) ? 'white' : 'black';
+
+    const offcanvasStyle = {
+        backgroundColor: posterColor,
+
+
+    };
 
     const containerStyle = {
         position: 'absolute',
@@ -16,7 +84,7 @@ function MovieDetails({ movie, onClose, imageWidth, imageHeight }) {
         left: 0,
         width: imageWidth,
         height: imageHeight,
-        backgroundColor: 'transparent',
+        //backgroundColor: posterColor,
         color: 'white',
         display: 'flex',
         flexDirection: 'column',
@@ -34,6 +102,7 @@ function MovieDetails({ movie, onClose, imageWidth, imageHeight }) {
         height: '100%',
         background: 'linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0))',
         zIndex: 0,
+
     };
 
     const titleStyle = {
@@ -53,7 +122,6 @@ function MovieDetails({ movie, onClose, imageWidth, imageHeight }) {
 
     const handleReservationSubmit = (e) => {
         e.preventDefault();
-        // Gérez ici la soumission du formulaire (envoi au backend, etc.)
         console.log('Date:', reservationDate);
         console.log('Heure:', reservationHour);
         console.log('Salle:', reservationRoom);
@@ -64,37 +132,39 @@ function MovieDetails({ movie, onClose, imageWidth, imageHeight }) {
             <div className="movie-details" style={containerStyle}>
                 <h2 style={titleStyle}>{movie.title}</h2>
                 <p>{movie.overview}</p>
-
                 <Button style={reserveButtonStyle} variant="primary" onClick={handleShow}>
                     Réserver
                 </Button>
+                <canvas ref={canvasRef} style={{ display: 'none' }} />
             </div>
 
             <div style={gradientBackgroundStyle} className="dark:bg-gray-800"></div>
 
-            <Offcanvas show={show} onHide={handleClose}>
-                <Offcanvas.Header closeButton className="dark:bg-gray-800">
-                    <Offcanvas.Title className="dark:text-white">Réserve une séance pour {movie.title}</Offcanvas.Title>
+            <Offcanvas show={show} onHide={handleClose} style={offcanvasStyle}>
+                <Offcanvas.Header closeButton>
+                    <Offcanvas.Title style={{ color: textColor }} >Réserve une séance pour: <br />{movie.title}</Offcanvas.Title>
                 </Offcanvas.Header>
-                <Offcanvas.Body className="dark:bg-gray-800">
-                    <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={movie.title} className="img-fluid mb-3" />
-                    <p className="dark:text-white mb-3">{movie.overview}</p>
-                    <p className="dark:text-white mb-3">Date de sortie : {movie.release_date}</p>
+                <Offcanvas.Body>
+                    {colorFetched && (
+                        <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={movie.title} className="img-fluid mb-3" />
+                    )}
+                    <p style={{ color: textColor }}>{movie.overview}</p>
+                    <p style={{ color: textColor }}>Date de sortie : {movie.release_date}</p>
 
                     {/* Formulaire de réservation */}
                     <Form onSubmit={handleReservationSubmit}>
                         <Form.Group controlId="reservationDate">
-                            <Form.Label>Date :</Form.Label>
+                            <Form.Label style={{ color: textColor }}>Date :</Form.Label>
                             <Form.Control type="date" value={reservationDate} onChange={(e) => setReservationDate(e.target.value)} required />
                         </Form.Group>
 
                         <Form.Group controlId="reservationHour">
-                            <Form.Label>Heure :</Form.Label>
+                            <Form.Label style={{ color: textColor }}>Heure :</Form.Label>
                             <Form.Control type="time" value={reservationHour} onChange={(e) => setReservationHour(e.target.value)} required />
                         </Form.Group>
 
                         <Form.Group controlId="reservationRoom">
-                            <Form.Label>Salle :</Form.Label>
+                            <Form.Label style={{ color: textColor }}>Salle :</Form.Label>
                             <Form.Control type="text" value={reservationRoom} onChange={(e) => setReservationRoom(e.target.value)} required />
                         </Form.Group>
 
@@ -104,6 +174,7 @@ function MovieDetails({ movie, onClose, imageWidth, imageHeight }) {
                     </Form>
                 </Offcanvas.Body>
             </Offcanvas>
+
         </>
     );
 }

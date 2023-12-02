@@ -32,7 +32,7 @@ module.exports = {
           "2000": "#040506"
         },
         backgroundColor: {
-          'grey': '#333745',
+          'grey': '#121212',
         },
       },
     },

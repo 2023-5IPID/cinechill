@@ -25,7 +25,7 @@ export default function About() {
         { text: "Des animations et événements réguliers, c'est fantastique!", author: "Léa P." },
         { text: "Le café est délicieux, un vrai atout pour le cinéma!", author: "Elodie M." },
         { text: "Un endroit génial pour passer un bon moment avec les amis.", author: "Pierre R." },
-        { text: "Personnel aimable, mais les horaires pourraient être plus flexibles.", author: "Julie B." }
+        { text: "Personnel aimable, SURTOUT ELIOTT mais les horaires pourraient être plus flexibles.", author: "Julie B." }
     ];
 
 
@@ -34,9 +34,9 @@ export default function About() {
         <div className="mx-auto max-w-7xl px-4">
             <div className="grid grid-cols-2 gap-8">
                 <div className="col-span-1">
-                    <h1 className="text-4xl font-bold text-gray-800 mb-4">CINECHILL.</h1>
-                    <hr className="border-b-2 border-gray-300 mb-6" />
-                    <div className="text-lg text-gray-700 mb-8 dark:bg-gray-800">
+                    <h1 className="text-4xl font-bold text-gray-800 mb-4 dark:text-white">CINECHILL.</h1>
+                    <hr className="border-b-2 border-gray-300 mb-6 dark:border-gray-600" />
+                    <div className="text-lg text-gray-700 mb-8 dark:text-gray-300 ">
                         <p>Fondé en 1998, CineChill est bien plus qu'un simple cinéma. C'est un lieu où les émotions prennent vie sur grand écran.</p>
                         <p>Situé au cœur du centre-ville, Place du Cinéma, 75000 Ville Lumière, notre cinéma vous accueille chaleureusement tous les jours de la semaine de 11h à 23h.</p><br></br>
                         <p>Nos 12 salles ultramodernes offrent une expérience immersive grâce à des technologies audiovisuelles de pointe. Nous proposons une vaste sélection de films, des dernières sorties jusqu'aux joyaux classiques du cinéma.</p>
@@ -48,10 +48,10 @@ export default function About() {
                     </div>
                 </div>
                 <div className="col-span-1">
-                    <div className="bg-gray-100 p-4 rounded-lg">
-                        <h3 className="font-semibold mb-4 text-xl text-blue-900 dark:bg-gray-800">Horaires d'ouverture</h3>
+                    <div className=" p-4 rounded-lg">
+                        <h3 className="font-semibold mb-4 text-xl text-black-900 dark:text-gray-300">Horaires d'ouverture</h3>
                         <table>
-                            <tbody>
+                            <tbody className="dark:text-gray-300">
                                 {openingHours.map((schedule, index) => (
                                     <tr key={index}>
                                         <td>{schedule.day}</td>
@@ -61,12 +61,12 @@ export default function About() {
                             </tbody>
                         </table>
                     </div>
-                    <div className="bg-gray-100 p-4 rounded-lg mt-8">
-                        <h3 className="text-lg font-semibold mb-4 dark:bg-gray-800">Témoignages</h3>
+                    <div className=" dark:text-gray-300 p-4 rounded-lg mt-8">
+                        <h3 className="text-lg font-semibold mb-4 ">Témoignages</h3>
                         {testimonials.map((testimonial, index) => (
                             <div key={index} className="mb-4">
-                                <p className="text-sm text-gray-600">{testimonial.text}</p>
-                                <p className="text-xs text-gray-500">- {testimonial.author}</p>
+                                <p className="text-sm text-gray-600 dark:text-gray-300">{testimonial.text}</p>
+                                <p className="text-xs text-gray-500 dark:text-gray-100">- {testimonial.author}</p>
                             </div>
                         ))}
                     </div>
