@@ -10,6 +10,8 @@ function AdminPage() {
     const [loading, setLoading] = useState(true);
     const [editingSalle, setEditingSalle] = useState(null);
 
+    const currentDate = new Date().toISOString().slice(0, 16);
+
     const tmdbApiKey = '1ca4c292237ffb64b4f51e0967ef4932';
     let url = `https://api.themoviedb.org/3`;
 
@@ -146,6 +148,22 @@ function AdminPage() {
       });
     };
 
+    const addSeance = () => {
+      console.log(newSeance);
+      axios.post('/seance/add', newSeance).then((response) => {
+        alert("la seance a bien été ajoutée. La page va s'actualiser ");
+        console.log(response.data);
+        setSeances([...seances, response.data.seance]);
+      });
+    };
+
+    const deleteSeance = (id) => {
+      axios.delete(`/seance/${id}`).then(() => {
+        const updatedSeance= seances.filter((seance) => seance.id !== id);
+        setSeances(updatedSeance);
+      });
+    };
+
     return (
       <div>
       <Tabs
@@ -168,7 +186,7 @@ function AdminPage() {
                 <tbody>
                   {films.map((film) => (
                     <tr key={film.id}>
-                      <td>{film.titre}</td>
+                      <td style={{ maxWidth: '100px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{film.titre}</td>
                       <td style={{ maxWidth: '100px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{film.resume}</td>
                       <td>{film.duree_min}</td>
                       <td>{film.genre}</td>
@@ -339,14 +357,48 @@ function AdminPage() {
                   <td>{seance.salle.nom}</td>
                   <td>{seance.horraire}</td>
                   <td>
-                    <button
-                      //onClick={updateSalle}
-                      style={{ width: '100%', backgroundColor: '#1bb80d', color: 'white', padding: '8px 12px', border: 'none', cursor: 'pointer',}}>
-                      Update
-                    </button>
+                    <button 
+                      onClick={() => deleteSeance(seance.id)} 
+                      style={{ width: '100%', backgroundColor: '#d43b2a', color: 'white', padding: '8px 12px', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+                        Delete
+                      </button>
                   </td>
                 </tr>
               ))}
+              <tr>
+                <td>
+                  <select onChange={(e) => setNewSeance({ ...newSeance, film_id: e.target.value })}>
+                    {films.map((film) => (
+                      <option key={film.id} value={film.id}>
+                        {film.titre}
+                      </option>
+                    ))}
+                  </select>
+                </td>
+                <td>
+                  <select onChange={(e) => setNewSeance({ ...newSeance, salle_id: e.target.value })}>
+                    {salles.map((salle) => (
+                      <option key={salle.id} value={salle.id}>
+                        {salle.nom}
+                      </option>
+                    ))}
+                  </select>
+                </td>
+                <td>
+                  <input
+                        type="datetime-local"
+                        min={currentDate}
+                        onChange={(e) => setNewSeance({ ...newSeance, horraire: e.target.value })}
+                      />
+                </td>
+                <td>
+                  <button 
+                    onClick={() => addSeance()} 
+                    style={{ width: '100%', backgroundColor: '#1bb80d', color: 'white', padding: '8px 12px', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+                      Ajouter
+                    </button>
+                </td>
+              </tr>
             </tbody>
           </table>
         </Tab>
