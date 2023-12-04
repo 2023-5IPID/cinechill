@@ -100,7 +100,7 @@ function MovieDetails({ movie, onClose, imageWidth, imageHeight }) {
         left: 0,
         width: '100%',
         height: '100%',
-        background: 'linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0))',
+        background: 'linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5))',
         zIndex: 0,
 
     };
@@ -131,7 +131,7 @@ function MovieDetails({ movie, onClose, imageWidth, imageHeight }) {
         <>
             <div className="movie-details" style={containerStyle}>
                 <h2 style={titleStyle}>{movie.title}</h2>
-                <p>{movie.overview}</p>
+                <p>{movie.resume}</p>
                 <Button style={reserveButtonStyle} variant="primary" onClick={handleShow}>
                     Réserver
                 </Button>

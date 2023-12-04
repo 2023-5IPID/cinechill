@@ -6,9 +6,6 @@ import Register from './pages/Register';
 import Home from './pages/Home';
 import ProtectedLayout from './components/ProtectedLayout';
 import GuestLayout from './components/GuestLayout';
-import Film from './pages/Film';
-import UpdateFilm from './pages/UpdateFilm';
-import PresentationFilm from './pages/PresentationFilm';
 import Admin from './pages/Admin';
 import AdminLayout from './components/AdminLayout';
 import AuthLayout from './components/AuthLayout';
@@ -24,19 +21,6 @@ const router = createBrowserRouter([
                 path: '/',
                 element: <Home />,
             },
-            {
-                path: '/film',
-                element: <Film />,
-            },
-            {
-                path: '/update/:id',
-                element: <UpdateFilm />,
-            },
-            {
-                path: '/presentationFilm/:id',
-                element: <PresentationFilm />,
-            },
-            
         ],
     },
     {

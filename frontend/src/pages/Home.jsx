@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../axios';
 import MovieDetails from '../components/MovieDetails';
 import Filters from '../components/FiltersLayout';
 import CarouselLayout from '../components/CarouselLayout';
@@ -17,48 +17,49 @@ function ErrorDisplay({ error, onClose }) {
 
 function Home() {
     const [movies, setMovies] = useState([]);
-    const [selectedMovie, setSelectedMovie] = useState(null);
+    const [salles, setSalles] = useState([]);
+    const [seances, setSeances] = useState([]);
     const [hoveredMovie, setHoveredMovie] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-
-    const fetchMovies = (filters = {}) => {
-        const tmdbApiKey = '8688e58fef221ff4ad0d063811690638';
-        let url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${tmdbApiKey}&language=fr-FR`;
-
-        if (filters.genre) {
-            url += `&with_genres=${filters.genre}`;
-        }
-        if (filters.duration) {
-            url += `&with_runtime.gte=${filters.duration.min}&with_runtime.lte=${filters.duration.max}`;
-        }
-
-        axios
-            .get(url, { withCredentials: false })
-            .then((response) => {
-                setMovies(response.data.results);
-                setLoading(false);
-            })
-            .catch((error) => {
-                console.error(error);
-                setError('Une erreur est survenue lors du chargement des films.');
-                setLoading(false);
-            });
-    };
-
     useEffect(() => {
-        fetchMovies();
-    }, []);
+        axios.get('/film').then((response) => {
+          setMovies(response.data.film);
+          setLoading(false);
+        }).catch((error) => {
+            console.error(error);
+            setError('Une erreur est survenue lors du chargement des films.');
+            setLoading(false);
+        });
+      }, []);
 
-    const handleFilterChange = (filters) => {
-        fetchMovies(filters);
-    };
     const maxMovies = 12;
     const groupedMovies = [];
     for (let i = 0; i < movies.length && i < maxMovies; i += 3) {
         groupedMovies.push(movies.slice(i, i + 3));
     }
+    console.log(groupedMovies);
+  
+      useEffect(() => {
+        axios.get('/salle').then((response) => {
+          setSalles(response.data.salles);
+        }).catch((error) => {
+            console.error(error);
+            setError('Une erreur est survenue lors du chargement des salles.');
+            setLoading(false);
+        });
+      }, []);
+  
+      useEffect(() => {
+        axios.get('/seance').then((response) => {
+          setSeances(response.data.seance);
+        }).catch((error) => {
+            console.error(error);
+            setError('Une erreur est survenue lors du chargement des séances.');
+            setLoading(false);
+        });
+      }, []);
 
     const handleMouseEnter = (movie) => {
         setHoveredMovie(movie);
@@ -75,17 +76,6 @@ function Home() {
             <header className="flex items-center justify-center">
                 <h1 className="dark:text-white">Films à l'affiche</h1>
             </header>
-
-
-
-            <div className="flex items-center justify-center">
-                <Filters handleFilterChange={handleFilterChange} /><br /></div>
-
-
-
-
-            
-
             <div className="movie-list">
                 {loading ? (
                     <p>Chargement en cours...</p>
