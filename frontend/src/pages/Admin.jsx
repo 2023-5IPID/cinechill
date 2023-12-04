@@ -39,8 +39,9 @@ function AdminPage() {
           };
           addFilm(newFilm);
         } catch (error) {
-          console.error('Erreur lors de la récupération des détails du film:', error);
+          //console.error('Erreur lors de la récupération des détails du film:', error);
           throw error;
+          setError('Erreur lors de la récupération des détails du film:', error);
         }
       };
       
@@ -64,7 +65,7 @@ function AdminPage() {
           setMovies(response.data.results);
         }
         } catch (error) {
-          console.error('Error fetching movies:', error);
+          //console.error('Error fetching movies:', error);
           setLoading(false);
           setError('erreur lors du chargement ou aucun film trouvé');
         }

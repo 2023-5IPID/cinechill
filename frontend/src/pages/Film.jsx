@@ -26,7 +26,8 @@ const Film = () => {
         setLoading(false);
       })
       .catch((error) => {
-        console.error(error);
+        setError('Erreur lors du chargement des données.');
+        //console.error(error);
         setLoading(false);
       });
   }, []);
@@ -56,7 +57,8 @@ const Film = () => {
       const updatedFilms = await axios.get("http://127.0.0.1:8000/api/film");
       setFilms(updatedFilms.data.film);
     } catch (error) {
-      console.error(error);
+      //console.error(error);
+      setError('Erreur lors du chargement des données.');
     }
   };
 
@@ -69,7 +71,8 @@ const Film = () => {
       const updatedFilms = await axios.get('http://127.0.0.1:8000/api/film');
       setFilms(updatedFilms.data.film);
     } catch (error) {
-      console.error(error);
+      //console.error(error);
+      setError('Erreur lors du chargement des données.');
     }
   };
 

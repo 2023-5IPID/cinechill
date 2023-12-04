@@ -20,7 +20,8 @@ const UpdateFilm = () => {
     });
 
     } catch (err) {
-      console.log("Something went wrong");
+      //console.log("Something went wrong");
+      setError('Erreur lors du chargement des données.');
     }
   };
 
@@ -66,7 +67,8 @@ const UpdateFilm = () => {
       alert("les modification on été faite")
       navigate("/film");
     } catch (err) {
-      console.log(updatedFilm)
+      //console.log(updatedFilm)
+      setError('Erreur lors de la modification des données.');
     }
   };
 

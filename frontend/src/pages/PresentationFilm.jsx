@@ -57,7 +57,8 @@ const PresentationFilm = () => {
             setPosterPath(null);
           }
         } catch (error) {
-          console.error("Error fetching data:", error);
+          // console.error("Error fetching data:", error);
+          setError('Erreur lors du chargement des données.');
           
         }
       };

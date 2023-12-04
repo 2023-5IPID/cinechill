@@ -36,7 +36,7 @@ function Home() {
                 setLoading(false);
             })
             .catch((error) => {
-                console.error(error);
+                //console.error(error);
                 setError('Une erreur est survenue lors du chargement des films.');
                 setLoading(false);
             });

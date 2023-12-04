@@ -26,7 +26,7 @@ export default function Register() {
             }
         } catch (error) {
             if (error.response.status === 422) {
-                console.log(error.response.data.errors);
+                //console.log(error.response.data.errors);
                 if (error.response.data.errors.name) {
                     setNameError(error.response.data.errors.name[0]);
                 } else {
