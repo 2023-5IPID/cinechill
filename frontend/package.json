@@ -17,6 +17,7 @@
     "jquery": "^3.7.1",
     "js-cookie": "^3.0.5",
     "popper.js": "^1.16.1",
+    "openai": "^4.20.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.1",
     "react-cookies": "^0.1.1",

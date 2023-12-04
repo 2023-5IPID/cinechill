@@ -3,16 +3,19 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import axios from '../axios';
 import { useAuth } from '../contexts/AuthContext';
-import DarkModeLayout from '../components/DarkmodeLayout'; // Import du composant DarkModeLayout
-
-
+import DarkModeLayout from '../components/DarkmodeLayout';
 
 export default function DefaultLayout() {
     const { user, setUser, isDarkMode } = useAuth();
 
     // if user is not logged in, redirect to login page
     if (!user) {
-        return <Navigate to="/" />;
+        return <Navigate to="/login" />;
+    }
+
+    // if user is admin, redirect to admin page
+    if (user.is_admin == 1){
+        return <Navigate to="/admin" />;
     }
 
     // logout user
@@ -59,7 +62,7 @@ export default function DefaultLayout() {
                         <ul style={{ backgroundColor: 'rgba(0, 0, 0, 0)' }} className="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-md md:font-medium md:border-0 md:bg-white bg-gray-800 md:dark:bg-black md:bg-[#F3C677] border-gray-700">
                             <li>
                                 <NavLink
-                                    to="/home"
+                                    to="/"
                                     className={({ isActive }) =>
                                         isActive
                                             ? 'block py-2 pl-3 pr-4 text-black  dark:text-white bg-[#780000] rounded md:bg-transparent md:text-black md:p-0 text-white'
@@ -97,7 +100,7 @@ export default function DefaultLayout() {
                                     onClick={handleLogout}
                                     href="#"
                                     className="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-black md:p-0 text-[#003049] dark:text-[#780000] md:hover:text-white hover:bg-gray-700 hover:text-white md:hover:bg-transparent md:dark:hover:text-white">
-                                    Se deconnecter
+                                    Déconnexion
                                 </a>
                             </li>
                         </ul>

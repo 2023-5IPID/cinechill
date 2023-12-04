@@ -60,4 +60,11 @@ class AuthController extends Controller
 
         return response()->json(['message' => 'test']);
     }
+
+    public function index()
+    {
+        $user = User::all();
+
+        return response()->json(['user' => $user]);
+    }
 }

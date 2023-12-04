@@ -7,11 +7,20 @@ import CarouselLayout from '../components/CarouselLayout';
 
 
 
+function ErrorDisplay({ error, onClose }) {
+    return (
+        <div style={{ color: 'red', textAlign: 'center', marginTop: '20px' }}>
+            <p>{error}</p>
+        </div>
+    );
+}
+
 function Home() {
     const [movies, setMovies] = useState([]);
     const [selectedMovie, setSelectedMovie] = useState(null);
     const [hoveredMovie, setHoveredMovie] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
 
     const fetchMovies = (filters = {}) => {
@@ -33,6 +42,7 @@ function Home() {
             })
             .catch((error) => {
                 console.error(error);
+                setError('Une erreur est survenue lors du chargement des films.');
                 setLoading(false);
             });
     };
@@ -74,15 +84,13 @@ function Home() {
 
 
 
+            
 
             <div className="movie-list">
                 {loading ? (
                     <p>Chargement en cours...</p>
                 ) : groupedMovies.length === 0 ? (
-                    <div className="movie">
-                        <h2>Film non disponible</h2>
-                        <p>Désolé, il n'y a aucun film à l'affiche pour le moment.</p>
-                    </div>
+                    <ErrorDisplay error={error} />
                 ) : (
                     groupedMovies.map((group, groupIndex) => (
                         <div key={groupIndex} style={{ display: 'flex', justifyContent: 'space-between' }}>

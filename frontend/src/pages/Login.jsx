@@ -3,16 +3,12 @@ import { Link, Navigate } from 'react-router-dom';
 import axios from '../axios';
 import { useAuth } from '../contexts/AuthContext';
 import 'tailwindcss/tailwind.css';
-
-
-
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
     const { setUser, csrfToken } = useAuth();
     const [error, setError] = React.useState(null);
-
-
-
+    const navigate = useNavigate();
 
     // login user
     const handleSubmit = async (e) => {
@@ -27,7 +23,7 @@ export default function Login() {
             const resp = await axios.post('/login', body);
             if (resp.status === 200) {
                 setUser(resp.data.user);
-                return <Navigate to="/profile" />;
+                navigate('/profile');
             }
         } catch (error) {
             if (error.response.status === 401) {

@@ -46,7 +46,9 @@ const PresentationFilm = () => {
         const tmdbApiKey = '8688e58fef221ff4ad0d063811690638';
         const tmdbUrl = `https://api.themoviedb.org/3/search/movie?api_key=${tmdbApiKey}&query=${film.titre}`;
         try {
-          const response = await axios.get(tmdbUrl);
+          const response = await axios.get(tmdbUrl, {
+              withCredentials: false,
+          });
           const results = response.data.results;
           
           

@@ -35,7 +35,7 @@ class SalleController extends Controller
         $salle->notes = $request->notes;
 
         $salle->save();
-        return response()->json(['success' => 'La salle a été ajouté avec succès.']);
+        return response()->json([$salle]);
     }
 
     public function edit(string $id)
@@ -63,7 +63,7 @@ class SalleController extends Controller
     
         $salle->save();
     
-        return response()->json(['les champs ont été ajustés ' => true,]);
+        return response()->json([$salle,]);
     }
 
     public function destroy(string $id){
