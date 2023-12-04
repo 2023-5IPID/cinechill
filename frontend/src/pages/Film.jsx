@@ -26,8 +26,8 @@ const Film = () => {
         setLoading(false);
       })
       .catch((error) => {
-        console.error('Erreur lors de la récupération des données :', error);
-        throw error;
+        console.error(error);
+        setLoading(false);
       });
   }, []);
 
@@ -56,8 +56,7 @@ const Film = () => {
       const updatedFilms = await axios.get("http://127.0.0.1:8000/api/film");
       setFilms(updatedFilms.data.film);
     } catch (error) {
-      console.error('Erreur lors de la récupération des données :', error);
-      throw error;
+      console.error(error);
     }
   };
 
@@ -70,8 +69,7 @@ const Film = () => {
       const updatedFilms = await axios.get('http://127.0.0.1:8000/api/film');
       setFilms(updatedFilms.data.film);
     } catch (error) {
-      console.error('Erreur lors de la récupération des données:', error);
-      throw error;
+      console.error(error);
     }
   };
 
