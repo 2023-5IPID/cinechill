@@ -27,11 +27,11 @@ class SeanceController extends Controller
     }
 
     public function store (Request $request){
-        $request->validate([
-            'film_id'=>'required',
-            'salle_id'=>'required',
-            'horraire'=>'required|date_format:Y-m-d H:i:s',
-        ]);
+
+        $datetimeString = $request->horraire;
+        $dateTime = new \DateTime($datetimeString);
+        $request->horraire = $dateTime->format('Y-m-d H:i');
+        
         $seance = new FilmSalle();
 
         $seance->film_id = $request->film_id;
