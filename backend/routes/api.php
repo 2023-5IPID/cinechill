@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\SalleController;
+use App\Http\Controllers\EmployerController;
 
 
 /*
@@ -45,3 +46,14 @@ Route::post('/seance/add', [filmController::class, 'addSeance']);
 Route::put('/seance/update', [filmController::class, 'updateSeance']);
 Route::delete('/seance', [filmController::class, 'deleteSeance']);
 Route::delete('/seance/{id}/all', [filmController::class, 'deleteSeanceAll']);
+
+Route::get('/employers', [EmployerController::class, 'index']);
+Route::post('/employers/add', [EmployerController::class, 'store']);
+Route::get('/employers/{id}', [EmployerController::class, 'show']);
+Route::put('/employers/{id}', [EmployerController::class, 'update']);
+Route::delete('/employers/{id}', [EmployerController::class, 'destroy']);
+
+Route::get('/employers/{employerId}/absences', [EmployerController::class, 'showAbsences']);
+Route::post('/employers/{employerId}/absences', [EmployerController::class, 'storeAbsence']);
+Route::put('/employers/absences/{absenceId}', [EmployerController::class, 'updateAbsence']);
+Route::delete('/employers/{employerId}/absences/{absenceId}', [EmployerController::class, 'destroyAbsence']);
