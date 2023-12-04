@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\SalleController;
 use App\Http\Controllers\SeanceController;
+use App\Http\Controllers\EmployerController;
 
 
 /*
@@ -39,6 +40,7 @@ Route::get('/salle/{id}/edit', [SalleController::class, 'edit']);
 Route::put('/salle/{id}', [SalleController::class, 'update']);
 Route::delete('/salle/{id}', [SalleController::class, 'destroy']);
 
+
 Route::get('/seance', [SeanceController::class, 'index']);
 Route::get('/seance/{id}', [SeanceController::class, 'show']);
 Route::post('/seance/add', [SeanceController::class, 'store']);
@@ -46,3 +48,15 @@ Route::put('/seance/{id}', [SeanceController::class, 'update']);
 Route::delete('/seance/{id}', [SeanceController::class, 'destroy']);
 
 Route::get('/user', [AuthController::class, 'index']);
+
+Route::get('/employers', [EmployerController::class, 'index']);
+Route::post('/employers/add', [EmployerController::class, 'store']);
+Route::get('/employers/{id}', [EmployerController::class, 'show']);
+Route::put('/employers/{id}', [EmployerController::class, 'update']);
+Route::delete('/employers/{id}', [EmployerController::class, 'destroy']);
+
+Route::get('/employers/{employerId}/absences', [EmployerController::class, 'showAbsences']);
+Route::post('/employers/{employerId}/absences', [EmployerController::class, 'storeAbsence']);
+Route::put('/employers/absences/{absenceId}', [EmployerController::class, 'updateAbsence']);
+Route::delete('/employers/{employerId}/absences/{absenceId}', [EmployerController::class, 'destroyAbsence']);
+
