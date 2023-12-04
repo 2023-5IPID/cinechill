@@ -13,6 +13,8 @@ import Admin from './pages/Admin';
 import AdminLayout from './components/AdminLayout';
 import AuthLayout from './components/AuthLayout';
 
+
+
 const router = createBrowserRouter([
     {
         path: '/',
@@ -24,15 +26,15 @@ const router = createBrowserRouter([
             },
             {
                 path: '/film',
-                element:<Film />, 
-            },            
+                element: <Film />,
+            },
             {
                 path: '/update/:id',
-                element:<UpdateFilm />, 
+                element: <UpdateFilm />,
             },
             {
                 path: '/presentationFilm/:id',
-                element:<PresentationFilm />, 
+                element: <PresentationFilm />,
             },
             
         ],
@@ -55,7 +57,6 @@ const router = createBrowserRouter([
         path: '/',
         element: <AdminLayout />,
         children: [
-            {
                 path: '/Admin',
                 element: <Admin />,
             },

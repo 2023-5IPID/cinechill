@@ -4,7 +4,6 @@ import axios from '../axios';
 import { useAuth } from '../contexts/AuthContext';
 import 'tailwindcss/tailwind.css';
 import { useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie';
 
 export default function Login() {
     const { setUser, csrfToken } = useAuth();
@@ -32,6 +31,8 @@ export default function Login() {
             }
         }
     };
+
+
 
     return (
 

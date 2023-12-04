@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import MovieDetails from '../components/MovieDetails';
 import Filters from '../components/FiltersLayout';
+import CarouselLayout from '../components/CarouselLayout';
+
+
+
 
 function ErrorDisplay({ error, onClose }) {
     return (
@@ -18,6 +22,7 @@ function Home() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+
     const fetchMovies = (filters = {}) => {
         const tmdbApiKey = '8688e58fef221ff4ad0d063811690638';
         let url = `https://api.themoviedb.org/3/movie/now_playing?api_key=${tmdbApiKey}&language=fr-FR`;
@@ -30,7 +35,7 @@ function Home() {
         }
 
         axios
-            .get(url)
+            .get(url, { withCredentials: false })
             .then((response) => {
                 setMovies(response.data.results);
                 setLoading(false);
@@ -65,11 +70,19 @@ function Home() {
 
     return (
         <div className="App">
-            <header>
-                <h1>Films à l'affiche</h1>
+            <CarouselLayout />
+            <br /><br /><br />
+            <header className="flex items-center justify-center">
+                <h1 className="dark:text-white">Films à l'affiche</h1>
             </header>
 
-            <Filters handleFilterChange={handleFilterChange} />
+
+
+            <div className="flex items-center justify-center">
+                <Filters handleFilterChange={handleFilterChange} /><br /></div>
+
+
+
 
             
 
@@ -130,7 +143,7 @@ function Home() {
                     ))
                 )}
             </div>
-        </div>
+        </div >
     );
 }
 

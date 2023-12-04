@@ -5,7 +5,6 @@ import axios from '../axios';
 import { useAuth } from '../contexts/AuthContext';
 import DarkModeLayout from '../components/DarkmodeLayout';
 
-
 export default function DefaultLayout() {
     const { user, setUser, isDarkMode } = useAuth();
 
@@ -21,16 +20,16 @@ export default function DefaultLayout() {
 
     // logout user
     const handleLogout = async () => {
-		try {
-			const resp = await axios.post('/logout');
-			if (resp.status === 204) {
-				localStorage.removeItem('user');
-				window.location.href = '/';
-			}
-		} catch (error) {
-			console.log(error);
-		}
-	};
+        try {
+            const resp = await axios.post('/logout');
+            if (resp.status === 204) {
+                localStorage.removeItem('user');
+                window.location.href = '/';
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
     return (
         <>
             <nav className="bg-gray border-gray-200 px-2 sm:px-4 py-2.5 bg-[#F3C677] dark:bg-black">
@@ -94,6 +93,7 @@ export default function DefaultLayout() {
                                     A propos
                                 </NavLink>
                             </li>
+
 
                             <li>
                                 <a
