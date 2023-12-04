@@ -12,6 +12,7 @@ import PresentationFilm from './pages/PresentationFilm';
 import Admin from './pages/Admin';
 import AdminLayout from './components/AdminLayout';
 import AuthLayout from './components/AuthLayout';
+import ErreurPage from './pages/ErreurPage';
 
 const router = createBrowserRouter([
     {
@@ -34,7 +35,10 @@ const router = createBrowserRouter([
                 path: '/presentationFilm/:id',
                 element:<PresentationFilm />, 
             },
-            
+            {
+                path: '/*',
+                element: <ErreurPage />,
+            }  
         ],
     },
     {
@@ -74,7 +78,7 @@ const router = createBrowserRouter([
                 element: <Register />,
             },
         ],
-    },
+    }, 
 ]);
 
 export default router;
