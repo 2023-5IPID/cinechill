@@ -37,6 +37,17 @@ export default function AdminLayout() {
                     <div className="hidden w-full md:block md:w-auto" id="navbar-default">
                         <ul style={{ backgroundColor: 'rgba(0, 0, 0, 0)' }} className="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-md md:font-medium md:border-0 md:bg-white bg-gray-800 md:dark:bg-black md:bg-[#F3C677] border-gray-700">
                             <li>
+                                <NavLink
+                                    to="/"
+                                    className={({ isActive }) =>
+                                        isActive
+                                            ? 'block py-2 pl-3 pr-4 text-black  dark:text-white bg-[#780000] rounded md:bg-transparent md:text-black md:p-0 text-white'
+                                            : 'block py-2 pl-3 pr-4 rounded md:bg-transparent md:p-0 text-[#003049] dark:text-[#780000] md:hover:text- md:dark:hover:text-white'
+                                    }>
+                                    Home
+                                </NavLink>
+                            </li>
+                            <li>
                                 <a
                                     onClick={handleLogout}
                                     href="#"

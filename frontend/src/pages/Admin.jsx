@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from '../axios';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
+import Accordion from 'react-bootstrap/Accordion';
 
 function AdminPage() {
     const [movies, setMovies] = useState([]);
@@ -9,6 +10,7 @@ function AdminPage() {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
     const [editingSalle, setEditingSalle] = useState(null);
+    const [editingEmploye, setEditingEmploye] = useState(null);
 
     const currentDate = new Date().toISOString().slice(0, 16);
 
@@ -80,11 +82,9 @@ function AdminPage() {
 
       const handleEditClick = (data) => {
         setEditingSalle(data);
+        setEditingEmploye(data);
       };
 
-    //const [user, setUser] = useState([]);
-    //const [newUser, setNewUser] = useState({ name: '', email: '' });
-  
     const [films, setFilms] = useState([]);
   
     const [salles, setSalles] = useState([]);
@@ -92,6 +92,12 @@ function AdminPage() {
   
     const [seances, setSeances] = useState([]);
     const [newSeance, setNewSeance] = useState({ film_id: '', salle_id: '', horraire: '' });
+
+    const [employes, setEmployes] = useState([]);
+    const [newEmployes, setNewEmployes] = useState({ id: '', nom: '', prenom: '', tel: '', statut: ''  });
+
+    const [absences, setAbsences] = useState([]);
+    const [newAbsences, setNewAbsences] = useState({ id: '', date_debut: '', date_fin: '', motif: '', employer_id: ''  });
   
     useEffect(() => {
       axios.get('/film').then((response) => {
@@ -110,8 +116,21 @@ function AdminPage() {
         setSeances(response.data.seance);
       });
     }, []);
+
+    useEffect(() => {
+      axios.get('/employers').then((response) => {
+        setEmployes(response.data.employer);
+      });
+    }, []);
+
+    useEffect(() => {
+      axios.get('/employers/absences/index').then((response) => {
+        setAbsences(response.data.absences);
+      });
+    }, []);
   
     const addFilm = (data) => {
+      console.log(data)
       axios.post('/film/add', data).then((response) => {
         alert("le film a bien été ajouté. La page va s'actualiser ");
         setFilms([...films, response.data.data]);
@@ -133,7 +152,6 @@ function AdminPage() {
     };
 
     const updateSalle = () => {
-      console.log(newSalle)
       axios.put(`/salle/${newSalle.id}`, newSalle).then(() => {
         const updatedSalle= salles.map((salle) => (salle.id === newSalle.id ? newSalle: salle));
         setSalles(updatedSalle);
@@ -149,7 +167,6 @@ function AdminPage() {
     };
 
     const addSeance = () => {
-      console.log(newSeance);
       axios.post('/seance/add', newSeance).then((response) => {
         alert("la seance a bien été ajoutée. La page va s'actualiser ");
         console.log(response.data);
@@ -161,6 +178,62 @@ function AdminPage() {
       axios.delete(`/seance/${id}`).then(() => {
         const updatedSeance= seances.filter((seance) => seance.id !== id);
         setSeances(updatedSeance);
+      });
+    };
+
+    const addEmploye = () => {
+      axios.post('/employers/add', newEmployes)
+      .then((response) => {
+        alert("l'employé a bien été ajoutée. La page va s'actualiser ");
+        setEmployes([...employes, response.data.employer]);
+      })
+      .catch((error) => {
+        alert("erreur lors de l'enregistrement des données")
+      });
+    };
+
+    const updateEmploye = () => {
+      axios.put(`/employers/${newEmployes.id}`, newEmployes)
+      .then(() => {
+        const updatedEmployes= employes.map((employe) => (employe.id === newEmployes.id ? newEmployes: employe));
+        setEmployes(updatedEmployes);
+        setEditingSalle(null);
+      })
+      .catch((error) => {
+        alert("erreur lors de l'update des données")
+      });
+    };
+
+    const deleteEmploye = (id) => {
+      axios.delete(`/employers/${id}`).then(() => {
+        const updatedEmployes= employes.filter((employe) => employe.id !== id);
+        setEmployes(updatedEmployes);
+      })
+      .catch((error) => {
+        alert("erreur lors de la suppression des données")
+      });
+    };
+
+    const addAbsence = () => {
+      axios.post(`/employers/${newAbsences.employer_id}/absences`, newAbsences)
+      .then((response) => {
+        alert("l'absence a bien été ajoutée. La page va s'actualiser ");
+        const updatedAbsences = absences.map((absence) => (absence.employer_id === newAbsences.employer_id ? newAbsences: absence));
+        console.log(response.data.absence)
+        setAbsences(updatedAbsences);
+      })
+      .catch((error) => {
+        alert("erreur lors de l'enregistrement des données")
+      });
+    };
+
+    const deleteAbsence = (id) => {
+      axios.delete(`/employers/${id}/absences`).then(() => {
+        const updatedAbsences= absences.filter((absence) => absence.absences.id !== id);
+        setAbsences(updatedAbsences);
+      })
+      .catch((error) => {
+        alert("erreur lors de la suppression des données")
       });
     };
 
@@ -402,8 +475,190 @@ function AdminPage() {
             </tbody>
           </table>
         </Tab>
-        <Tab eventKey="User" title="User management">
+        <Tab eventKey="employe" title="employe management">
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '10px' }}>
+            <thead>
+              <tr>
+                <th>nom</th>
+                <th>prenom</th>
+                <th>téléphone</th>
+                <th>status</th>
+                <th>action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {employes.map((employe) => (
+                <tr key={employe.id}>
+                  <td>
+                    {editingEmploye === employe ? (
+                      <input
+                        type="text"
+                        placeholder={employe.nom}
+                        onChange={(e) => setNewEmployes({ ...newEmployes, nom: e.target.value })}
+                      />
+                    ) : (
+                      employe.nom
+                    )}
+                  </td>
+                  <td>
+                    {editingEmploye === employe ? (
+                      <input
+                        type="text"
+                        placeholder={employe.prenom}
+                        onChange={(e) => setNewEmployes({ ...newEmployes, prenom: e.target.value })}
+                      />
+                    ) : (
+                      employe.prenom
+                    )}
+                  </td>
+                  <td>
+                    {editingEmploye === employe ? (
+                      <input
+                        type="text"
+                        placeholder={employe.tel}
+                        onChange={(e) => setNewEmployes({ ...newEmployes, tel: e.target.value})}
+                      />
+                    ) : (
+                      employe.tel
+                    )}
+                  </td>
+                  <td>
+                    {editingEmploye === employe ? (
+                      <input
+                        type="text"
+                        placeholder={employe.statut}
+                        onChange={(e) => setNewEmployes({ ...newEmployes, statut: e.target.value, id: employe.id })}
+                      />
+                    ) : (
+                      employe.statut
+                    )}
+                  </td>
+                  <td>
+                    {editingEmploye === employe ? (
+                      <>
+                      <button
+                        onClick={updateEmploye}
+                        style={{ width: '100%', backgroundColor: '#1bb80d', color: 'white', padding: '8px 12px', border: 'none', cursor: 'pointer',}}>
+                        Update
+                      </button>
+                      <button
+                        onClick={() => handleEditClick(null)} // Cancel editing
+                        style={{ width: '100%', backgroundColor: '#d43b2a', color: 'white', padding: '8px 12px', border: 'none', cursor: 'pointer',}}>
+                        Cancel
+                      </button>
+                      </>
+                    ) : (
+                      <><button
+                          onClick={() => handleEditClick(employe)}
+                          style={{ width: '100%', backgroundColor: '#2e6da4', color: 'white', padding: '8px 12px', border: 'none', cursor: 'pointer',}}>
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => deleteEmploye(employe.id)}
+                          style={{ width: '100%', backgroundColor: '#d43b2a', color: 'white', padding: '8px 12px', border: 'none', cursor: 'pointer',}}>
+                            delete
+                          </button></>
+                    )}
+                  </td>
+                </tr>
+              ))}
+              <tr>
+                <td>
+                  <input
+                    type="text"
+                    placeholder="nom"
+                    onChange={(e) => setNewEmployes({ ...newEmployes, nom: e.target.value })}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    placeholder="prenom"
+                    onChange={(e) => setNewEmployes({ ...newEmployes, prenom: e.target.value })}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    placeholder="téléphone"
+                    onChange={(e) => setNewEmployes({ ...newEmployes, tel: e.target.value})}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    placeholder="status"
+                    onChange={(e) => setNewEmployes({ ...newEmployes, statut: e.target.value})}
+                  />
+                </td>
+                <td>
+                  <button 
+                  onClick={addEmploye}
+                  style={{ width: '100%', backgroundColor: '#1bb80d', color: 'white', padding: '8px 12px', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+                    Add Epmloyé
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </Tab>
+        <Tab eventKey="absence" title="absence management">
+            {absences.map((absence) => (
+              <><h3>{absence.nom} {absence.prenom}</h3>
+              <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '10px' }}>
+                <thead>
+                  <tr>
+                    <th>date début</th>
+                    <th>date fin</th>
+                    <th>motif</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {absence.absences.map((details) => (
+                    <tr key={details.id}>
+                      <td>{details.date_debut}</td>
+                      <td>{details.date_fin}</td>
+                      <td>{details.motif}</td>
+                      <td>
+                        <button
+                          onClick={() => deleteAbsence(details.id)}
+                          style={{ width: '100%', backgroundColor: '#d43b2a', color: 'white', padding: '8px 12px', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                  <tr>
+                    <td>
+                      <input
+                        type="datetime-local"
+                        min={currentDate}
+                        onChange={(e) => setNewAbsences({ ...newAbsences, date_debut: e.target.value })} />
+                    </td>
+                    <td>
+                      <input
+                        type="datetime-local"
+                        min={currentDate}
+                        onChange={(e) => setNewAbsences({ ...newAbsences, date_fin: e.target.value })} />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        placeholder='motif'
+                        onChange={(e) => setNewAbsences({ ...newAbsences, motif: e.target.value, employer_id: absence.id, id: absence.absences.id })} />
+                    </td>
+                    <td>
+                      <button
+                        onClick={() => addAbsence()}
+                        style={{ width: '100%', backgroundColor: '#1bb80d', color: 'white', padding: '8px 12px', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+                        Ajouter
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table></>
+            ))}
+          </Tab>
       </Tabs>
       </div>
     );

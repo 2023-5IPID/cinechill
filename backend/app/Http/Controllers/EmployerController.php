@@ -39,15 +39,15 @@ class EmployerController extends Controller
             return response()->json(['errors' => $employer->getErrors()], 422);
         }
 
-        return response()->json(['success' => 'l employer a été ajouté avec succès.']);
+        return response()->json(['employer' => $employer]);
 
     }
 
     public function show(string $id)
     {
         // Affiche les détails d'un employeur spécifique
-        $employer = Employer::findOrFaill($id);
-        return response()->json(['data' => $employer]);
+        $employer = Employer::findOrFail($id);
+        return response()->json(['employer' => $employer]);
     }
 
 
@@ -61,12 +61,12 @@ class EmployerController extends Controller
             'statut' => 'required',
         ]);
 
-        $employer = Employer::FindOrFil($id);
+        $employer = Employer::findOrFail($id);
 
-        $employer->nom = $request->imput('nom');
-        $employer->prenom = $request->imput('prenom');
-        $employer->tel = $request->imput('tel');
-        $employer->satut = $request->imput('statut');
+        $employer->nom = $request->input('nom');
+        $employer->prenom = $request->input('prenom');
+        $employer->tel = $request->input('tel');
+        $employer->statut = $request->input('statut');
 
         $employer->save();
         return response()->json(['les champs ont été ajustés' => true,]);
@@ -75,7 +75,7 @@ class EmployerController extends Controller
     public function destroy(string $id)
     {
         // Supprime un employeur spécifique de la base de données
-        $employer = Employer::FindOrFail($id);
+        $employer = Employer::findOrFail($id);
         $employer->delete();
         return response()->json(['Employer supprimé' => true]);
     }
@@ -95,6 +95,14 @@ class EmployerController extends Controller
         return response()->json(['absences' => $absences]);
     }
 
+    public function indexAbsence()
+    {
+        // Affiche les absences 
+        $employers = Employer::with('absences')->get();
+        
+        return response()->json(['absences' => $employers]);
+    }
+
     public function storeAbsence(AbsenceRequest $request, string $employerId)
     {
         // Stocke une nouvelle absence pour un employeur dans la base de données
@@ -112,7 +120,10 @@ class EmployerController extends Controller
         ]);
 
         $employer->absences()->save($absence);
-        return response()->json(['message' => 'Absence ajoutée avec succès']);
+
+        $employer = Employer::with('absences')->findOrFail($employerId);
+        
+        return response()->json(['absence' => $employer]);
     }
 
     public function updateAbsence(AbsenceRequest $request, string $absenceId)
