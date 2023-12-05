@@ -1,5 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Button, Offcanvas, Form } from 'react-bootstrap';
+import { Navigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
+import DarkModeLayout from '../components/DarkmodeLayout';
+import axios from '../axios';
 
 
 function isColorDark(color) {
@@ -18,17 +22,20 @@ function hexToRgb(hex) {
     return [r, g, b];
 }
 
-function MovieDetails({ movie, onClose, imageWidth, imageHeight }) {
+function MovieDetails({ movie, onClose, imageWidth, imageHeight, seances }) {
     const [show, setShow] = useState(false);
     const [posterColor, setPosterColor] = useState('white');
     const [colorFetched, setColorFetched] = useState(false);
-    const [reservationDate, setReservationDate] = useState('');
-    const [reservationHour, setReservationHour] = useState('');
-    const [reservationRoom, setReservationRoom] = useState('');
+    const [reservation, setReservation] = useState({ user_id: '', seance_id: '', nb_places: ''});
+    const { user, setUser, isDarkMode } = useAuth();
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const canvasRef = useRef(null);
+
+    if (!user) {
+        return <Navigate to="/login" />;
+    }
 
     useEffect(() => {
         const img = new Image();
@@ -100,7 +107,7 @@ function MovieDetails({ movie, onClose, imageWidth, imageHeight }) {
         left: 0,
         width: '100%',
         height: '100%',
-        background: 'linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5))',
+        background: 'linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.3))',
         zIndex: 0,
 
     };
@@ -122,15 +129,19 @@ function MovieDetails({ movie, onClose, imageWidth, imageHeight }) {
 
     const handleReservationSubmit = (e) => {
         e.preventDefault();
-        console.log('Date:', reservationDate);
-        console.log('Heure:', reservationHour);
-        console.log('Salle:', reservationRoom);
+        axios.post('/reservation/add', reservation)
+        .then((response) => {
+            alert("La réservation a bien été effectuée");
+        })
+        .catch((error) => {
+            console.error("Erreur lors de la réservation :", error);
+        });
     };
 
     return (
         <>
             <div className="movie-details" style={containerStyle}>
-                <h2 style={titleStyle}>{movie.title}</h2>
+                <h2 style={titleStyle}>{movie.titre}</h2>
                 <p>{movie.resume}</p>
                 <Button style={reserveButtonStyle} variant="primary" onClick={handleShow}>
                     Réserver
@@ -142,33 +153,36 @@ function MovieDetails({ movie, onClose, imageWidth, imageHeight }) {
 
             <Offcanvas show={show} onHide={handleClose} style={offcanvasStyle}>
                 <Offcanvas.Header closeButton>
-                    <Offcanvas.Title style={{ color: textColor }} >Réserve une séance pour: <br />{movie.title}</Offcanvas.Title>
+                    <Offcanvas.Title style={{ color: textColor }} >Réserve une séance pour: <br />{movie.titre}</Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
                     {colorFetched && (
-                        <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={movie.title} className="img-fluid mb-3" />
+                        <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={movie.titre} className="img-fluid mb-3" />
                     )}
-                    <p style={{ color: textColor }}>{movie.overview}</p>
+                    <p style={{ color: textColor }}>{movie.resume}</p>
                     <p style={{ color: textColor }}>Date de sortie : {movie.release_date}</p>
 
                     {/* Formulaire de réservation */}
                     <Form onSubmit={handleReservationSubmit}>
-                        <Form.Group controlId="reservationDate">
-                            <Form.Label style={{ color: textColor }}>Date :</Form.Label>
-                            <Form.Control type="date" value={reservationDate} onChange={(e) => setReservationDate(e.target.value)} required />
+                        <Form.Group controlId="selectedDate">
+                            <Form.Label>Sélectionnez une séance :</Form.Label>
+                            <Form.Control as="select" onChange={(e) => setReservation({...reservation, seance_id: e.target.value})}>
+                                <option value="">-- Choisissez une séance --</option>
+                                {seances.map((seance) => (
+                                    seance.film.id === movie.id ? (
+                                        <option key={seance.id} value={seance.id}>{`${seance.horraire} - ${seance.salle.nom}`}</option>
+                                    ) : null
+                                ))}
+                            </Form.Control>
+                            <Form.Label>Nombre de places :</Form.Label>
+                                <Form.Control
+                                type="number"
+                                onChange={(e) => setReservation({...reservation, nb_places: parseInt(e.target.value, 10)})}
+                                min={1}
+                                />
                         </Form.Group>
 
-                        <Form.Group controlId="reservationHour">
-                            <Form.Label style={{ color: textColor }}>Heure :</Form.Label>
-                            <Form.Control type="time" value={reservationHour} onChange={(e) => setReservationHour(e.target.value)} required />
-                        </Form.Group>
-
-                        <Form.Group controlId="reservationRoom">
-                            <Form.Label style={{ color: textColor }}>Salle :</Form.Label>
-                            <Form.Control type="text" value={reservationRoom} onChange={(e) => setReservationRoom(e.target.value)} required />
-                        </Form.Group>
-
-                        <Button variant="primary" type="submit">
+                        <Button variant="primary" type="submit" onClick={() => setReservation({...reservation, user_id: user.id})} >
                             Réserver
                         </Button>
                     </Form>

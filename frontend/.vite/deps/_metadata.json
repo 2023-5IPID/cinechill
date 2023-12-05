@@ -1,0 +1,89 @@
+{
+  "hash": "3d0c41e3",
+  "browserHash": "b9c20e01",
+  "optimized": {
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "4ba6e9f8",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "3cea3550",
+      "needsInterop": true
+    },
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.js",
+      "file": "react-router-dom.js",
+      "fileHash": "021c4a3b",
+      "needsInterop": false
+    },
+    "axios": {
+      "src": "../../node_modules/axios/index.js",
+      "file": "axios.js",
+      "fileHash": "81a7699b",
+      "needsInterop": false
+    },
+    "js-cookie": {
+      "src": "../../node_modules/js-cookie/dist/js.cookie.mjs",
+      "file": "js-cookie.js",
+      "fileHash": "58346976",
+      "needsInterop": false
+    },
+    "react-bootstrap/Tab": {
+      "src": "../../node_modules/react-bootstrap/esm/Tab.js",
+      "file": "react-bootstrap_Tab.js",
+      "fileHash": "4e338352",
+      "needsInterop": false
+    },
+    "react-bootstrap/Tabs": {
+      "src": "../../node_modules/react-bootstrap/esm/Tabs.js",
+      "file": "react-bootstrap_Tabs.js",
+      "fileHash": "d44fa684",
+      "needsInterop": false
+    },
+    "react-bootstrap": {
+      "src": "../../node_modules/react-bootstrap/esm/index.js",
+      "file": "react-bootstrap.js",
+      "fileHash": "7b7b4ef7",
+      "needsInterop": false
+    },
+    "react-bootstrap/Carousel": {
+      "src": "../../node_modules/react-bootstrap/esm/Carousel.js",
+      "file": "react-bootstrap_Carousel.js",
+      "fileHash": "4bbdbd62",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-7QEO5IFV": {
+      "file": "chunk-7QEO5IFV.js"
+    },
+    "chunk-DVYA6VX6": {
+      "file": "chunk-DVYA6VX6.js"
+    },
+    "chunk-TOTSOE36": {
+      "file": "chunk-TOTSOE36.js"
+    },
+    "chunk-VHGRE7FM": {
+      "file": "chunk-VHGRE7FM.js"
+    },
+    "chunk-NWLUOBSY": {
+      "file": "chunk-NWLUOBSY.js"
+    },
+    "chunk-JDWP22UR": {
+      "file": "chunk-JDWP22UR.js"
+    },
+    "chunk-DZXRV6RW": {
+      "file": "chunk-DZXRV6RW.js"
+    },
+    "chunk-ZAUFE7H7": {
+      "file": "chunk-ZAUFE7H7.js"
+    },
+    "chunk-UXIASGQL": {
+      "file": "chunk-UXIASGQL.js"
+    }
+  }
+}

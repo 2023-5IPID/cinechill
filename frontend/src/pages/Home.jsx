@@ -39,7 +39,6 @@ function Home() {
     for (let i = 0; i < movies.length && i < maxMovies; i += 3) {
         groupedMovies.push(movies.slice(i, i + 3));
     }
-    console.log(groupedMovies);
   
       useEffect(() => {
         axios.get('/salle').then((response) => {
@@ -124,6 +123,7 @@ function Home() {
                                             <MovieDetails
                                                 movie={hoveredMovie}
                                                 onClose={handleMouseLeave}
+                                                seances={seances}
                                             />
                                         </div>
                                     )}

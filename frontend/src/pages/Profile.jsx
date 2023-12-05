@@ -1,15 +1,31 @@
-import React from 'react';
 import { useAuth } from '../contexts/AuthContext';
+import React, { useState, useEffect } from 'react';
+import axios from '../axios';
 
 export default function Profile() {
     const { user } = useAuth();
+    const [reservations, setReservations] = useState([]);
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(true);
 
+    function ErrorDisplay({ error, onClose }) {
+        return (
+            <div style={{ color: 'red', textAlign: 'center', marginTop: '20px' }}>
+                <p>{error}</p>
+            </div>
+        );
+      }
 
-    const purchaseHistory = [
-        { id: 1, date: new Date().toISOString(), film: 'Film 1', price: 10, numberOfSeats: 2 },
-        { id: 2, date: new Date().toISOString(), film: 'Film 2', price: 12, numberOfSeats: 1 },
-        { id: 3, date: new Date().toISOString(), film: 'Film 3', price: 8, numberOfSeats: 3 },
-    ];
+    useEffect(() => {
+        axios.get(`/reservation/where/${user.id}`).then((response) => {
+            setReservations(response.data.reservation);
+            setLoading(false);
+        }).catch((error) => {
+            console.error(error);
+            setError('probléme lors du chargement des reservation');
+            setLoading(false);
+        });
+      }, []);
 
     return (
         <div className="mx-auto max-w-screen-md mt-10 p-8  border dark:border-gray-700 shadow-xl rounded-lg">
@@ -26,28 +42,32 @@ export default function Profile() {
             </div>
             <div className="mt-8">
                 <h2 className="text-2xl font-bold dark:text-white mb-4">Historique d'achat de billets de cinéma</h2>
-                <table className="min-w-full border dark:border-gray-700">
-                    <thead>
-                        <tr className="bg-gray-200 dark:bg-gray-700">
-                            <th className="border dark:border-gray-700 py-2 px-4">Date de la séance</th>
-                            <th className="border dark:border-gray-700 py-2 px-4">Film</th>
-                            <th className="border dark:border-gray-700 py-2 px-4">Prix</th>
-                            <th className="border dark:border-gray-700 py-2 px-4">Nombre de places</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {purchaseHistory.map((purchase) => (
-                            <tr key={purchase.id}>
-                                <td className="border dark:border-gray-700 py-2 px-4">
-                                    {new Date(purchase.date).toLocaleDateString()}
-                                </td>
-                                <td className="border dark:border-gray-700 py-2 px-4">{purchase.film}</td>
-                                <td className="border dark:border-gray-700 py-2 px-4">{purchase.price}</td>
-                                <td className="border dark:border-gray-700 py-2 px-4">{purchase.numberOfSeats}</td>
+                {loading ? (
+                    <p>Chargement en cours...</p>
+                ) : reservations.length === 0 ? (
+                    <ErrorDisplay error="Aucune reservation effectuée" />
+                ) : (
+                    <table className="min-w-full border dark:border-gray-700">
+                        <thead>
+                            <tr className="bg-gray-200 dark:bg-gray-700">
+                                <th className="border dark:border-gray-700 py-2 px-4">Date de la séance</th>
+                                <th className="border dark:border-gray-700 py-2 px-4">Film</th>
+                                <th className="border dark:border-gray-700 py-2 px-4">places</th>
+                                <th className="border dark:border-gray-700 py-2 px-4">Prix</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {reservations.map((reservation) => (
+                                <tr key={reservation.id}>
+                                    <td className="border dark:border-gray-700 py-2 px-4">{reservation.film_salle.horraire}</td>
+                                    <td className="border dark:border-gray-700 py-2 px-4">{reservation.film_salle.film.titre}</td>
+                                    <td className="border dark:border-gray-700 py-2 px-4">{reservation.nb_places}</td>
+                                    <td className="border dark:border-gray-700 py-2 px-4">{(reservation.nb_places * 8.5)} €</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                )}
             </div>
         </div>
     );

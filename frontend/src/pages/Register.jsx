@@ -2,12 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import axios from '../axios';
 import { useAuth } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function Register() {
     const { setUser } = useAuth();
     const [nameError, setNameError] = React.useState('');
     const [emailError, setEmailError] = React.useState('');
     const [passwordError, setPasswordError] = React.useState('');
+    const navigate = useNavigate();
     // register user
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -20,28 +22,24 @@ export default function Register() {
         };
         try {
             const resp = await axios.post('/register', body);
-            if (resp.status === 200) {
-                setUser(resp.data.user);
-                return <Navigate to="/profile" />;
-            }
+            console.log(body);
+            setUser(resp.data.user);
+            navigate('/profile');
         } catch (error) {
-            if (error.response.status === 422) {
-                console.log(error.response.data.errors);
-                if (error.response.data.errors.name) {
-                    setNameError(error.response.data.errors.name[0]);
-                } else {
-                    setNameError('');
-                }
-                if (error.response.data.errors.email) {
-                    setEmailError(error.response.data.errors.email[0]);
-                } else {
-                    setEmailError('');
-                }
-                if (error.response.data.errors.password) {
-                    setPasswordError(error.response.data.errors.password[0]);
-                } else {
-                    setPasswordError('');
-                }
+            if (error.response.data.errors.name) {
+                setNameError(error.response.data.errors.name[0]);
+            } else {
+                setNameError('');
+            }
+            if (error.response.data.errors.email) {
+                setEmailError(error.response.data.errors.email[0]);
+            } else {
+                setEmailError('');
+            }
+            if (error.response.data.errors.password) {
+                setPasswordError(error.response.data.errors.password[0]);
+            } else {
+                setPasswordError('');
             }
         }
     };

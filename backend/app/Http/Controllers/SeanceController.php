@@ -49,7 +49,7 @@ class SeanceController extends Controller
         $request->validate([
             'film_id'=>'required',
             'salle_id'=>'required',
-            'horraire'=>'required|date_format:Y-m-d H:i:s',
+            'horraire'=>'required|date_format:Y-m-d H:i',
         ]);
         $seance = FilmSalle::findOrFail($id);
 
