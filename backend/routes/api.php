@@ -57,6 +57,7 @@ Route::put('/employers/{id}', [EmployerController::class, 'update']);
 Route::delete('/employers/{id}', [EmployerController::class, 'destroy']);
 
 Route::get('/employers/{employerId}/absences', [EmployerController::class, 'showAbsences']);
+Route::get('/employers/absences/index', [EmployerController::class, 'indexAbsence']);
 Route::post('/employers/{employerId}/absences', [EmployerController::class, 'storeAbsence']);
 Route::put('/employers/absences/{absenceId}', [EmployerController::class, 'updateAbsence']);
 Route::delete('/employers/{employerId}/absences/{absenceId}', [EmployerController::class, 'destroyAbsence']);

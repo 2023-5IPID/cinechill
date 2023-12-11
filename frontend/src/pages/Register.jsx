@@ -22,7 +22,6 @@ export default function Register() {
         };
         try {
             const resp = await axios.post('/register', body);
-            console.log(body);
             setUser(resp.data.user);
             navigate('/profile');
         } catch (error) {

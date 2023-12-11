@@ -21,7 +21,6 @@ export default function Profile() {
             setReservations(response.data.reservation);
             setLoading(false);
         }).catch((error) => {
-            console.error(error);
             setError('probléme lors du chargement des reservation');
             setLoading(false);
         });

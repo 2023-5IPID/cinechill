@@ -27,7 +27,7 @@ export default function DefaultLayout() {
                 window.location.href = '/';
             }
         } catch (error) {
-            console.log(error);
+            alert("erreur lors de la déconnexion");
         }
     };
     return (

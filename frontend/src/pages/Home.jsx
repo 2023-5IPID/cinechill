@@ -28,7 +28,6 @@ function Home() {
           setMovies(response.data.film);
           setLoading(false);
         }).catch((error) => {
-            console.error(error);
             setError('Une erreur est survenue lors du chargement des films.');
             setLoading(false);
         });
@@ -44,7 +43,6 @@ function Home() {
         axios.get('/salle').then((response) => {
           setSalles(response.data.salles);
         }).catch((error) => {
-            console.error(error);
             setError('Une erreur est survenue lors du chargement des salles.');
             setLoading(false);
         });
@@ -54,7 +52,6 @@ function Home() {
         axios.get('/seance').then((response) => {
           setSeances(response.data.seance);
         }).catch((error) => {
-            console.error(error);
             setError('Une erreur est survenue lors du chargement des séances.');
             setLoading(false);
         });
