@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\SalleController;
 use App\Http\Controllers\SeanceController;
 use App\Http\Controllers\EmployerController;
+use App\Http\Controllers\ReservationController;
 
 
 /*
@@ -59,4 +60,11 @@ Route::get('/employers/{employerId}/absences', [EmployerController::class, 'show
 Route::post('/employers/{employerId}/absences', [EmployerController::class, 'storeAbsence']);
 Route::put('/employers/absences/{absenceId}', [EmployerController::class, 'updateAbsence']);
 Route::delete('/employers/{employerId}/absences/{absenceId}', [EmployerController::class, 'destroyAbsence']);
+
+Route::get('/reservation', [ReservationController::class, 'index']);
+Route::get('/reservation/{id}', [ReservationController::class, 'show']);
+Route::get('/reservation/where/{id}', [ReservationController::class, 'where']);
+Route::post('/reservation/add/{id}', [ReservationController::class, 'store']);
+Route::put('/reservation/{id}', [ReservationController::class, 'update']);
+Route::delete('/reservation/{id}', [ReservationController::class, 'destroy']);
 

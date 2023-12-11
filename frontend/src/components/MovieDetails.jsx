@@ -33,10 +33,6 @@ function MovieDetails({ movie, onClose, imageWidth, imageHeight, seances }) {
     const handleShow = () => setShow(true);
     const canvasRef = useRef(null);
 
-    if (!user) {
-        return <Navigate to="/login" />;
-    }
-
     useEffect(() => {
         const img = new Image();
         img.crossOrigin = 'Anonymous';
@@ -129,12 +125,15 @@ function MovieDetails({ movie, onClose, imageWidth, imageHeight, seances }) {
 
     const handleReservationSubmit = (e) => {
         e.preventDefault();
-        axios.post('/reservation/add', reservation)
+        if (!user) {
+            return <Navigate to="/login" />;
+        }
+        axios.post(`/reservation/add/${user.id}`, reservation)
         .then((response) => {
             alert("La réservation a bien été effectuée");
         })
         .catch((error) => {
-            console.error("Erreur lors de la réservation :", error);
+            alert("Erreur lors de la réservation");
         });
     };
 
@@ -182,7 +181,7 @@ function MovieDetails({ movie, onClose, imageWidth, imageHeight, seances }) {
                                 />
                         </Form.Group>
 
-                        <Button variant="primary" type="submit" onClick={() => setReservation({...reservation, user_id: user.id})} >
+                        <Button variant="primary" type="submit" onClick={() => setReservation} >
                             Réserver
                         </Button>
                     </Form>

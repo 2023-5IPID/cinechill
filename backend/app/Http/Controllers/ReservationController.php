@@ -32,11 +32,11 @@ class ReservationController extends Controller
         return response()->json(['reservation' => $reservations,]);;
     }
 
-    public function store (Request $request){
+    public function store (Request $request, string $id){
         
         $reservation = new Reservation();
 
-        $reservation->user_id = $request->user_id;
+        $reservation->user_id = $id;
         $reservation->seance_id = $request->seance_id;
         $reservation->nb_places = $request->nb_places;
 
